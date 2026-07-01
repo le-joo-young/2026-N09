@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>(주)엔공구 · 생성형 AI 자동화 실습 교재</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1526; --ink-2:#171F36; --paper:#F4F5F7; --paper-2:#FFFFFF;
+    --text:#161B2C; --graphite:#5B6478; --line:#DFE2E9; --line-dark:#2A3350;
+    --glaze:#3E7CB1; --glaze-soft:#E7EFF5; --ember:#D9812F; --ember-soft:#FBEEDF;
+    --alert:#E1483C; --alert-soft:#FBE7E5; --ok:#2F8F5B; --ok-soft:#E7F5EC;
+    --mono:'JetBrains Mono', monospace; --sans:'Pretendard', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans); color:var(--text); background:var(--paper); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:var(--sans); cursor:pointer;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3,h4{font-weight:800; letter-spacing:-0.02em; line-height:1.25;}
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  nav{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:920px; margin:0 auto; padding:14px 32px; display:flex; align-items:center; justify-content:space-between; gap:20px;}
+  .nav-inner .doc-id{font-family:var(--mono); font-size:12px; color:var(--graphite); font-weight:600;}
+  .nav-links{display:flex; gap:22px;}
+  .nav-links a{font-size:13px; font-weight:600; color:var(--graphite);}
+  .nav-links a:hover{color:var(--text);}
+
+  header.cover{background:var(--ink); color:#fff; padding:64px 0 48px;}
+  .cover-label{font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:#8FC1E8; text-transform:uppercase; margin-bottom:16px;}
+  .cover h1{font-size:32px; color:#fff; margin-bottom:12px; max-width:640px;}
+  .cover .sub{color:#B7BED2; font-size:15px; max-width:560px; margin-bottom:28px;}
+  .meta-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line-dark); border:1px solid var(--line-dark); border-radius:10px; overflow:hidden;}
+  @media (max-width:700px){ .meta-strip{grid-template-columns:repeat(2,1fr);} }
+  .meta-strip div{background:#131A30; padding:14px 16px;}
+  .meta-strip span{display:block; font-size:11px; color:#7C86A3; margin-bottom:5px;}
+  .meta-strip b{font-family:var(--mono); font-size:14px; color:#fff;}
+
+  /* ---------- TOC (accordion) ---------- */
+  .toc-section{background:var(--ink-2); padding:0 0 40px;}
+  .toc-panel{border:1px solid var(--line-dark); border-radius:14px; overflow:hidden; background:var(--ink);}
+  .toc-lesson + .toc-lesson{border-top:1px solid var(--line-dark);}
+  .toc-lesson-head{
+    width:100%; background:none; border:none; color:#fff; padding:18px 22px;
+    display:flex; align-items:center; justify-content:space-between; text-align:left;
+  }
+  .toc-lesson-head .tl-left{display:flex; align-items:center; gap:12px;}
+  .toc-lesson-head .tl-no{font-family:var(--mono); font-size:11px; color:var(--glaze); background:var(--glaze-soft); padding:3px 8px; border-radius:5px; font-weight:700;}
+  .toc-lesson-head h3{font-size:15.5px; color:#fff;}
+  .toc-lesson-head .tl-dur{font-family:var(--mono); font-size:11px; color:#7C86A3;}
+  .toc-lesson-head .chevron{transition:transform .25s; color:#7C86A3;}
+  .toc-lesson.open .toc-lesson-head .chevron{transform:rotate(180deg);}
+  .toc-lesson-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .toc-lesson.open .toc-lesson-body{max-height:600px;}
+  .toc-list{padding:0 22px 18px; display:flex; flex-direction:column; gap:2px;}
+  .toc-list a{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:9px 10px; border-radius:7px; font-size:13px; color:#C7D0E5;
+  }
+  .toc-list a:hover{background:#1B2440; color:#fff;}
+  .toc-star{font-family:var(--mono); font-size:10.5px; color:var(--ember); flex:none;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:56px 0;}
+  section.light{background:var(--paper-2);}
+  .chapter-head{display:flex; align-items:baseline; gap:14px; margin-bottom:8px;}
+  .chapter-head .ch-no{font-family:var(--mono); font-size:13px; color:var(--glaze); font-weight:700;}
+  .chapter-head .ch-dur{font-family:var(--mono); font-size:11px; background:var(--ink); color:#fff; padding:3px 8px; border-radius:5px; font-weight:600;}
+  .chapter-head h2{font-size:25px;}
+  .chapter-intro{color:var(--graphite); font-size:14.5px; max-width:640px; margin:10px 0 28px;}
+
+  /* ---------- GUIDE ACCORDION ---------- */
+  .guide{border:1px solid var(--line); border-radius:12px; margin-bottom:28px; overflow:hidden;}
+  .guide-head{
+    width:100%; background:var(--paper); border:none; padding:14px 18px;
+    display:flex; align-items:center; justify-content:space-between; font-size:13.5px; font-weight:700; color:var(--text);
+  }
+  .guide-head .chevron{transition:transform .25s; color:var(--graphite);}
+  .guide.open .guide-head .chevron{transform:rotate(180deg);}
+  .guide-body{max-height:0; overflow:hidden; transition:max-height .4s ease; background:var(--paper-2);}
+  .guide.open .guide-body{max-height:600px;}
+  .guide-body-inner{padding:18px 20px; font-size:13.5px; color:var(--graphite);}
+  .guide-body-inner ul{padding-left:18px; margin-top:8px;}
+  .guide-body-inner li{margin-bottom:6px;}
+
+  /* ---------- RCTF CONCEPT TABLE ---------- */
+  table.rctf{width:100%; border-collapse:collapse; font-size:13.5px; border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:28px;}
+  table.rctf th{background:var(--ink); color:#fff; text-align:left; padding:10px 14px; font-size:12px; font-weight:600;}
+  table.rctf td{padding:12px 14px; border-top:1px solid var(--line); vertical-align:top;}
+  table.rctf tr:nth-child(even){background:var(--paper);}
+  table.rctf td.k{font-family:var(--mono); font-weight:700; color:var(--glaze); width:110px;}
+
+  /* ---------- ITEM ACCORDION CARDS ---------- */
+  .item-card{border:1px solid var(--line); border-radius:12px; margin-bottom:14px; overflow:hidden; background:var(--paper-2);}
+  .item-head{
+    width:100%; background:none; border:none; padding:16px 18px; display:flex; align-items:center; gap:14px; text-align:left;
+  }
+  .item-num{font-family:var(--mono); font-size:12px; color:var(--glaze); font-weight:700; flex:none;}
+  .item-title{font-size:14.5px; font-weight:700; flex:1;}
+  .item-stars{font-family:var(--mono); font-size:11px; color:var(--ember); flex:none;}
+  .item-head .chevron{transition:transform .25s; color:var(--graphite); flex:none;}
+  .item-card.open .item-head .chevron{transform:rotate(180deg);}
+  .item-body{max-height:0; overflow:hidden; transition:max-height .45s ease;}
+  .item-card.open .item-body{max-height:3000px;}
+  .item-body-inner{padding:0 20px 22px;}
+  .checks{list-style:none; margin-bottom:16px; border-top:1px solid var(--line); padding-top:14px;}
+  .checks li{font-size:13px; color:var(--graphite); padding:4px 0;}
+
+  /* ---------- CODE BLOCK (data / prompt / chain task) ---------- */
+  .code-block{background:var(--ink); border-radius:10px; overflow:hidden; margin-bottom:12px;}
+  .code-head{
+    display:flex; align-items:center; justify-content:space-between; padding:9px 14px;
+    background:#141C33; border-bottom:1px solid var(--line-dark);
+  }
+  .code-head span{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:#8FC1E8; font-weight:700;}
+  .copy-btn{
+    background:transparent; border:1px solid var(--line-dark); color:#C7D0E5; font-family:var(--mono);
+    font-size:10.5px; font-weight:600; padding:4px 10px; border-radius:5px;
+  }
+  .copy-btn:hover{border-color:var(--ember); color:#fff;}
+  .copy-btn.copied{border-color:var(--ok); color:#6EE7A8;}
+  .code-block pre{
+    padding:14px 16px; font-family:var(--mono); font-size:12px; line-height:1.7; color:#E7E9F2;
+    white-space:pre-wrap; word-break:break-word; max-height:340px; overflow-y:auto;
+  }
+
+  /* ---------- APPENDIX / FOOTER ---------- */
+  .ds-card{border:1px solid var(--line); border-radius:12px; margin-bottom:16px; overflow:hidden;}
+  .ds-head{padding:16px 20px; background:var(--ink); color:#fff; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;}
+  .ds-head h4{font-size:15px; color:#fff;}
+  .ds-head span{font-family:var(--mono); font-size:11px; color:#8FC1E8;}
+  .ds-body{padding:18px 20px;}
+  .ds-cols{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;}
+  .ds-cols span{font-family:var(--mono); font-size:11px; background:var(--paper); border:1px solid var(--line); padding:4px 9px; border-radius:5px;}
+  .ds-note{font-size:13px; color:var(--graphite);}
+
+  footer{background:var(--ink); color:#8A93AC; padding:32px 0; font-size:12.5px;}
+  .footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="doc-id">WORKBOOK · N09-2026-SUMMER · v3.0</span>
+    <div class="nav-links">
+      <a href="#toc">목차</a>
+      <a href="#ch1">1교시</a>
+      <a href="#ch2">2교시</a>
+      <a href="#appendix">부록</a>
+    </div>
+  </div>
+</nav>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="cover-label">실습 교재 · (주)엔공구 청년미래플러스 생성형 AI 자동화 과정</div>
+    <h1>자동차 이커머스 데이터로 배우는<br>생성형 AI 업무 자동화</h1>
+    <p class="sub">(주)엔공구의 판매·QnA·지출·물류·생산 5종 데이터를 직접 다루며, 구매 패턴 분석부터 고객 응대 자동화까지 실습합니다.</p>
+    <div class="meta-strip">
+      <div><span>총 실습 시간</span><b>200분 · 2교시</b></div>
+      <div><span>사용 데이터셋</span><b>5종 · 부서별</b></div>
+      <div><span>준비물</span><b>노트북 · 무료 AI 계정</b></div>
+      <div><span>실습 방식</span><b>개인 실습</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= TOC ================= -->
+<section id="toc" class="toc-section">
+  <div class="wrap">
+    <div class="toc-panel reveal">
+      <div class="toc-lesson open" id="toc-lesson-1">
+        <button class="toc-lesson-head" onclick="toggleLesson('toc-lesson-1')">
+          <span class="tl-left"><span class="tl-no">1교시</span><h3>생성형 AI 이해 및 업무별 모델 활용</h3></span>
+          <span class="tl-left"><span class="tl-dur">100분</span><span class="chevron">⌄</span></span>
+        </button>
+        <div class="toc-lesson-body"><div class="toc-list" id="toc-ch1-list"></div></div>
+      </div>
+      <div class="toc-lesson" id="toc-lesson-2">
+        <button class="toc-lesson-head" onclick="toggleLesson('toc-lesson-2')">
+          <span class="tl-left"><span class="tl-no">2교시</span><h3>실무 적용 실습</h3></span>
+          <span class="tl-left"><span class="tl-dur">100분</span><span class="chevron">⌄</span></span>
+        </button>
+        <div class="toc-lesson-body"><div class="toc-list" id="toc-ch2-list"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 1교시 ================= -->
+<section id="ch1" class="light">
+  <div class="wrap">
+    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 01</span><span class="ch-dur">100분</span></div>
+    <h2 class="reveal">생성형 AI 이해 및 업무별 모델 활용</h2>
+    <p class="chapter-intro reveal">프롬프트 설계 기본 틀인 RCTF를 익히고, (주)엔공구 판매 데이터를 직접 분석하며 업무에 AI를 적용하는 방법을 실습합니다.</p>
+
+    <div class="guide reveal" id="guide-ch1">
+      <button class="guide-head" onclick="toggleGuide('guide-ch1')">
+        <span>실습 가이드 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
+      </button>
+      <div class="guide-body"><div class="guide-body-inner">
+        각 실습은 <b>데이터 → 프롬프트 → 후속 질문</b> 3단계로 구성되어 있습니다.
+        <ul>
+          <li>data 블록을 복사해 ChatGPT / Claude / Gemini 중 사용 중인 AI 채팅창에 붙여넣습니다.</li>
+          <li>이어서 prompt 블록을 그대로 붙여넣어 실행합니다.</li>
+          <li>결과를 확인한 뒤 chain task의 후속 질문을 이어서 입력해 실습을 심화합니다.</li>
+        </ul>
+        정답을 찾는 게 목적이 아니라, 조건(RCTF)을 바꿨을 때 결과가 어떻게 달라지는지 직접 확인하는 것이 이번 교시의 목표입니다.
+      </div></div>
+    </div>
+
+    <table class="rctf reveal">
+      <tr><th colspan="2">RCTF 프레임워크</th></tr>
+      <tr><td class="k">Role</td><td>AI에게 맡길 역할. "너는 ○○팀 담당자야"처럼 관점을 지정합니다.</td></tr>
+      <tr><td class="k">Context</td><td>판단에 필요한 배경 정보. 데이터, 상황, 제약 조건을 함께 제공합니다.</td></tr>
+      <tr><td class="k">Task</td><td>구체적으로 해야 할 작업. 결과물을 명확히 지정합니다.</td></tr>
+      <tr><td class="k">Format</td><td>결과를 받고 싶은 형태. 표, 목록, 요약 등으로 지정합니다.</td></tr>
+    </table>
+
+    <div id="ch1-items"></div>
+  </div>
+</section>
+
+<!-- ================= 2교시 ================= -->
+<section id="ch2">
+  <div class="wrap">
+    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 02</span><span class="ch-dur">100분</span></div>
+    <h2 class="reveal">실무 적용 실습</h2>
+    <p class="chapter-intro reveal">(주)엔공구 고객 Q&A · VOC 데이터를 활용해 자동응답을 설계하고, 본인 업무에 AI를 적용할 영역을 정리합니다.</p>
+
+    <div class="guide reveal" id="guide-ch2">
+      <button class="guide-head" onclick="toggleGuide('guide-ch2')">
+        <span>실습 가이드 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
+      </button>
+      <div class="guide-body"><div class="guide-body-inner">
+        1교시가 "데이터를 분석하는 실습"이었다면, 2교시는 "고객에게 직접 노출되는 응답을 만드는 실습"입니다.
+        <ul>
+          <li>같은 data → prompt → chain task 구조를 따르되, 마지막 항목은 사수 검토 관점의 셀프체크로 마무리합니다.</li>
+          <li>AI가 만든 응답을 그대로 쓰지 않고, 왜 위험할 수 있는지 스스로 판단하는 연습이 포함되어 있습니다.</li>
+          <li>5번(Gemini Gem)은 시간이 남으면 진행하는 심화 실습입니다. 1~4번을 먼저 마치고 여유가 있을 때 도전하세요.</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div id="ch2-items"></div>
+
+    <h3 style="font-size:18px; margin:44px 0 14px;">본인 업무 적용</h3>
+    <p style="color:var(--graphite); font-size:13.5px; margin-bottom:20px;">1교시의 RCTF와 2교시의 검수 기준을 본인 업무에 옮겨봅니다. 자동화할 영역과 사람이 남아야 할 영역을 나누는 것이 핵심입니다.</p>
+    <table class="rctf">
+      <tr><th>AI에 맡길 영역</th><th>사람이 봐야 할 영역</th></tr>
+      <tr><td>반복 문의 1차 분류, 데이터 집계·요약, 초안 답변 작성</td><td>최종 답변 검수, 과장·오정보 표현 확인, 예외 상황 판단</td></tr>
+      <tr><td>표기 오류 없는 데이터의 패턴 분석</td><td>표기 불일치 등 데이터 품질 점검</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 부록 ================= -->
+<section id="appendix" class="light">
+  <div class="wrap">
+    <div class="chapter-head reveal"><span class="ch-no">APPENDIX</span></div>
+    <h2 class="reveal">부록 — 실습 데이터 사전</h2>
+    <p class="chapter-intro reveal">실습 중 참고할 (주)엔공구 5종 데이터셋의 구조와 특징입니다.</p>
+
+    <div class="ds-card reveal">
+      <div class="ds-head"><h4>온라인사업팀_판매데이터</h4><span>150 rows · 2024–2026</span></div>
+      <div class="ds-body">
+        <div class="ds-cols"><span>주문번호</span><span>연령대</span><span>성별</span><span>차종</span><span>차색상</span><span>구매제품</span><span>구매금액</span></div>
+        <p class="ds-note">여름(5~9월)은 유리막·발수코팅·워터리스, 겨울(12~2월)은 워셔액·성에제거·레더보호제 중심으로 구성되어 있습니다.</p>
+      </div>
+    </div>
+    <div class="ds-card reveal">
+      <div class="ds-head"><h4>온라인사업팀_QnA</h4><span>1~6월 흐름</span></div>
+      <div class="ds-body">
+        <div class="ds-cols"><span>문의일자</span><span>질문</span><span>카테고리</span></div>
+        <p class="ds-note">1~2월은 성에·워셔액 문의, 5~6월은 유리막·벌레제거 문의로 흐름이 전환됩니다.</p>
+      </div>
+    </div>
+    <div class="ds-card reveal">
+      <div class="ds-head"><h4>회계팀_지출내역</h4><span>누락값 포함</span></div>
+      <div class="ds-body">
+        <div class="ds-cols"><span>지출일자</span><span>항목</span><span>거래처</span><span>금액</span></div>
+        <p class="ds-note">5~6월 여름 원자재 선매입(소낙스 대량 발주 등) 패턴이 포함되어 있으며, 누락값 행은 빨간색으로 표시되어 있습니다.</p>
+      </div>
+    </div>
+    <div class="ds-card reveal">
+      <div class="ds-head"><h4>물류운영팀_배송이슈</h4><span>시즌 연동</span></div>
+      <div class="ds-body">
+        <div class="ds-cols"><span>이슈일자</span><span>제품</span><span>이슈유형</span></div>
+        <p class="ds-note">겨울엔 성에제거제, 여름엔 유리막·폼랜스 품절 흐름으로 시즌 리얼리티를 반영했습니다.</p>
+      </div>
+    </div>
+    <div class="ds-card reveal">
+      <div class="ds-head"><h4>생산팀_생산일지</h4><span>수식 자동화</span></div>
+      <div class="ds-body">
+        <div class="ds-cols"><span>LOT</span><span>생산수량</span><span>불량수</span><span>불량률</span></div>
+        <p class="ds-note">불량률은 <b style="font-family:var(--mono);">=ROUND(E/D*100,2)</b> 수식으로 자동 계산되며, 불량 20개 이상 행은 경고색으로 표시됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>WORKBOOK · N09-2026-SUMMER</span>
+    <span>(주)엔공구 자동차 이커머스 AI 자동화 실습 교재 · v3.0</span>
+  </div>
+</footer>
+
+<script>
+/* ===================== ITEM DATA ===================== */
+const CH1_ITEMS = [
+{
+  id:'c1-1', title:'RCTF로 반복 업무 구조화하기', stars:1,
+  checks:['AI가 역할·배경·작업·형식을 얼마나 정확히 반영하는가?','결과물이 실제로 바로 쓸 수 있는 형태로 나오는가?'],
+  data:
+`나는 (주)엔공구 온라인사업팀 CS 담당자입니다.
+이번 주 접수된 고객 문의 목록입니다.
+
+| 접수일 | 문의 내용 |
+|---|---|
+| 6/1 | 이 제품 화이트 차에도 써도 되나요? |
+| 6/1 | 한 번 쓰면 몇 번 세차분량인가요? |
+| 6/2 | 오늘 주문하면 언제 도착하나요? |
+| 6/2 | 뜯었는데 색이 안 맞으면 환불되나요? |
+| 6/3 | 유리막 코팅 후 며칠 동안 세차하면 안 되나요? |
+| 6/3 | 배송이 이틀째 그대로예요, 확인 부탁드려요 |`,
+  prompt:
+`아래는 (주)엔공구 온라인사업팀에 접수된 이번 주 고객 문의 목록이다. 팀 공유 채널에 올릴 주간 문의 요약을 만들어줘.
+
+[역할] 너는 (주)엔공구 온라인사업팀 CS 담당자야
+[작업 목적] 이번 주 문의를 카테고리별로 정리해 팀 공유 채널에 공유할 수 있는 요약본 작성
+[입력 데이터 사용 규칙] 아래 문의 목록에 있는 내용만 사용하고, 없는 내용은 지어내지 말 것
+[작업 절차]
+1. 문의를 사용법 / 호환성 / 배송 / 교환환불로 분류
+2. 카테고리별 건수 집계
+3. 카테고리별 대표 문의 1개씩 제시
+[출력 형식] 마크다운 표 (카테고리 | 건수 | 대표 문의)
+[검증 기준] 분류가 애매한 문의는 "분류 보류"로 별도 표시
+[금지] 문의에 없는 카테고리·수치 생성 금지
+
+[문의 목록]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 이 요약을 팀장 보고용 한 줄 요약("이번 주 문의는 총 N건, 가장 많은 유형은 ○○")으로 압축해줘.
+2) "배송" 카테고리 문의만 따로 뽑아 물류운영팀에 전달할 메시지로 만들어줘.
+3) 이 프롬프트의 [역할][작업 목적][입력 데이터 사용 규칙][작업 절차][출력 형식][검증 기준][금지] 중 하나를 빼면 결과가 어떻게 달라질지 하나 골라 설명해줘.`
+},
+{
+  id:'c1-2', title:'구매 데이터 자연어 분석 — TOP5 상품 뽑기', stars:1,
+  checks:['조건(연령대·성별·차종·차색상)을 정확히 필터링하는가?','근거 없는 제품을 지어내지 않는가?'],
+  data:
+`(주)엔공구_판매데이터 (일부)
+
+| 주문번호 | 연령대 | 성별 | 차종 | 차색상 | 구매제품 | 구매금액 |
+|---|---|---|---|---|---|---|
+| ORD-10231 | 20대 | 남 | SUV | 검정 | 고광택 왁스 | 38,000 |
+| ORD-10247 | 20대 | 남 | SUV | 검정 | 하부세차 대용량 | 52,000 |
+| ORD-10255 | 20대 | 남 | SUV | 검정 | 폼랜스 | 28,000 |
+| ORD-10262 | 30대 | 여 | 세단 | 흰색 | 실내 크리너 | 21,000 |
+| ORD-10271 | 20대 | 남 | SUV | 검정 | 유리막 코팅제 | 65,000 |
+| ORD-10288 | 40대 | 남 | SUV | 은색 | 발수 코팅제 | 45,000 |
+| ORD-10299 | 20대 | 남 | SUV | 검정 | 하부세차 대용량 | 51,000 |`,
+  prompt:
+`[역할] 너는 (주)엔공구 온라인사업팀 데이터 담당자야
+[작업 목적] 특정 고객군의 구매 패턴을 파악해 마케팅팀에 공유할 인사이트 도출
+[입력 데이터 사용 규칙] 아래 판매데이터 표에 있는 주문만 사용
+[작업 절차]
+1. 20대 남성, SUV, 검정색 차주 주문만 필터링
+2. 구매제품별 건수 집계
+3. TOP5로 정렬
+[출력 형식] 표 (순위 | 제품명 | 건수 | 합계금액)
+[검증 기준] 조건에 맞는 주문이 5건 미만이면 있는 만큼만 표시
+[금지] 표에 없는 제품 생성 금지
+
+[판매데이터]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 같은 조건에서 "차색상"만 흰색으로 바꿔 TOP5를 다시 뽑아줘. 검정색과 어떤 차이가 있는지 2줄로 설명해줘.
+2) TOP5 결과를 마케팅팀에 보낼 메시지 초안으로 바꿔줘.
+3) "검정색 SUV 차주는 광택·왁스류를 많이 산다"는 결과를, 다른 조건(연령대·성별)에서도 유지되는지 검증할 방법을 제안해줘.`
+},
+{
+  id:'c1-3', title:'구매 데이터 시각화 — 히트맵·그래프 요청', stars:2,
+  checks:['코드 실행 기능이 실제 표에 있는 값만으로 차트를 그리는가?','차트에서 읽을 수 있는 인사이트를 텍스트로도 설명해주는가?'],
+  data:
+`(위 실습의 판매데이터를 그대로 재사용합니다. 업로드한 대화창에 이어서 입력하세요.)`,
+  prompt:
+`[역할] 너는 (주)엔공구 온라인사업팀 데이터 담당자야
+[작업 목적] 연령대·차색상에 따른 구매 경향을 한눈에 보여줄 시각 자료 제작
+[입력 데이터 사용 규칙] 앞서 업로드한 판매데이터만 사용
+[작업 절차]
+1. 연령대별 구매 카테고리 히트맵 생성
+2. 차색상별 선호 제품군 막대그래프 생성
+[출력 형식] 차트 2개 + 각 차트 아래 3줄 요약
+[검증 기준] 데이터에 없는 연령대·색상은 축에 표시하지 말 것
+[금지] 임의의 수치로 축을 채우는 것 금지
+
+연령대별 구매 카테고리 히트맵과 차색상별 선호 제품군 막대그래프를 각각 그려줘.`,
+  chain:
+`1) 히트맵에서 가장 뚜렷하게 드러나는 패턴 1가지를 팀장 보고용 한 줄로 요약해줘.
+2) 같은 데이터로 "구매금액" 기준 차트도 하나 더 그려줘. 건수 기준과 어떻게 다른지 설명해줘.
+3) 이 결과를 방법 A(자연어 질의)로 얻은 결과와 비교했을 때, 어떤 상황에 방법 B(차트)가 더 유리한지 정리해줘.`
+},
+{
+  id:'c1-4', title:'차종 표기 정합성 점검 — 데이터 정제 요청', stars:2,
+  checks:['AI가 표기 불일치를 스스로 발견하는가, 시켜야만 찾는가?','정규화 이후 집계가 실제로 합쳐지는가?'],
+  data:
+`(주)엔공구_판매데이터 (차종 표기 오류 포함)
+
+| 주문번호 | 차종 표기 |
+|---|---|
+| ORD-11042 | 그랜저 |
+| ORD-11055 | 그랜저IG |
+| ORD-11071 | grandeur |
+| ORD-11088 | 쏘나타 |
+| ORD-11093 | 소나타 |
+| ORD-11101 | Sonata |`,
+  prompt:
+`[역할] 너는 (주)엔공구 데이터 정제 담당자야
+[작업 목적] 분석 전 차종 표기 오류를 찾아내고 정규화하는 것
+[입력 데이터 사용 규칙] 아래 표의 값만 사용
+[작업 절차]
+1. 동일 차종인데 다르게 표기된 값 그룹 찾기
+2. 대표 표기 하나로 통일하는 매핑 표 제안
+3. 정규화 전/후 집계 결과 비교
+[출력 형식] ① 매핑 표(원본표기 → 정규화표기) ② 정규화 전/후 집계 비교표
+[검증 기준] 실제로 다른 차종을 같은 것으로 합치지 않았는지 표기 근거를 함께 제시
+[금지] 표에 없는 차종 임의 추가 금지
+
+[데이터]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 같은 방식으로 "성별" 컬럼에도 표기 오류(남/남성/M 등)가 있다고 가정하고, 어떤 정규화 규칙을 세워야 할지 제안해줘.
+2) 앞으로 이런 표기 오류를 애초에 방지하려면 주문 입력 단계에서 어떤 장치가 필요한지 3가지 제안해줘.
+3) 이 실습 결과를 회계팀·생산팀 데이터 담당자에게 공유할 "데이터 정합성 점검 체크리스트"로 정리해줘.`
+}
+];
+
+const CH2_ITEMS = [
+{
+  id:'c2-1', title:'VOC 문의 카테고리 자동 분류', stars:1,
+  checks:['카테고리 분류 기준이 명확하게 지켜지는가?','건수 집계가 실제 데이터와 일치하는가?'],
+  data:
+`(주)엔공구_QnA (일부)
+
+| 문의일자 | 질문 |
+|---|---|
+| 1/8 | 겨울철에 워셔액이 얼어요, 부동액 비율 어떻게 하나요? |
+| 1/15 | 성에가 자꾸 껴서 아침마다 힘든데 추천 제품 있나요? |
+| 2/3 | 워셔액 다 썼는데 재구매 알림 되나요? |
+| 5/6 | 유리막 코팅하면 빗물이 정말 안 맺히나요? |
+| 5/20 | 벌레 자국이 안 지워지는데 전용 제품 있나요? |
+| 6/2 | 유리막 코팅 주기가 어떻게 되나요? |`,
+  prompt:
+`[역할] 너는 (주)엔공구 온라인사업팀 VOC 담당자야
+[작업 목적] 문의 유형을 카테고리화해 반복 질문 대응 자료의 기초 자료로 활용
+[입력 데이터 사용 규칙] 아래 문의 목록만 사용
+[작업 절차]
+1. 문의를 성에제거 / 워셔액 / 유리막 / 벌레제거 / 기타로 분류
+2. 카테고리별 건수 집계
+[출력 형식] 표 (카테고리 | 건수 | 대표 문의)
+[검증 기준] 카테고리가 애매하면 "기타"로 분류하고 이유를 한 줄로 남길 것
+[금지] 문의에 없는 카테고리 임의 생성 금지
+
+[문의 목록]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 가장 많이 반복되는 문의 TOP3를 뽑아, 상품 상세페이지에 넣을 FAQ 초안으로 만들어줘.
+2) "기타"로 분류된 문의가 있다면, 어떤 새 카테고리를 추가하면 좋을지 제안해줘.
+3) 이 분류 결과가 실제 문의 내용과 맞는지 검수할 때, 사수라면 어떤 부분을 가장 먼저 확인할지 정리해줘.`
+},
+{
+  id:'c2-2', title:'시즌별 VOC 트렌드 분석', stars:2,
+  checks:['겨울/여름 문의 유형 차이를 데이터로 설명하는가?','시즌 전환 시점을 근거 있게 짚어주는가?'],
+  data:
+`(주)엔공구_QnA (1~6월 카테고리 태깅본)
+
+| 월 | 카테고리 |
+|---|---|
+| 1 | 성에제거 |
+| 1 | 워셔액 |
+| 1 | 성에제거 |
+| 2 | 성에제거 |
+| 2 | 워셔액 |
+| 2 | 워셔액 |
+| 5 | 유리막 |
+| 5 | 벌레제거 |
+| 5 | 유리막 |
+| 6 | 유리막 |
+| 6 | 벌레제거 |
+| 6 | 벌레제거 |`,
+  prompt:
+`[역할] 너는 (주)엔공구 온라인사업팀 VOC 담당자야
+[작업 목적] 시즌별 문의 트렌드를 파악해 재고·인력 대응 계획에 참고
+[입력 데이터 사용 규칙] 아래 월별 카테고리 데이터만 사용
+[작업 절차]
+1. 1~2월과 5~6월 카테고리 건수를 각각 집계
+2. 두 시즌의 상위 카테고리를 비교
+[출력 형식] 비교표 (카테고리 | 겨울 건수 | 여름 건수) + 3줄 요약
+[검증 기준] 데이터에 없는 월(3~4월 등)은 언급하지 말 것
+[금지] 임의로 트렌드를 과장하는 표현 금지
+
+[데이터]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 이 결과를 바탕으로 다음 시즌(여름 → 가을) 문의가 어떤 카테고리로 전환될지 가설을 세워줘. 확실하지 않다면 "가설"이라고 명시해줘.
+2) 이 시즌별 트렌드를 재고팀에 공유할 메시지로 만들어줘 (성에제거제·유리막코팅제 재고 확보 시점 제안 포함).
+3) 이런 시즌 트렌드 분석에서 AI가 과거 데이터만 보고 미래를 단정하면 안 되는 이유를 한 줄로 설명해줘.`
+},
+{
+  id:'c2-3', title:'고객 응대 시스템 프롬프트 설계 + 오답 검증', stars:2,
+  checks:['금지사항이 실제 답변에 반영되는가?','AI 스스로 위험한 답변을 걸러낼 수 있는가?'],
+  data:
+`시스템 프롬프트에 반영할 조건
+
+- 톤: 친절하고 간결한 존댓말
+- 금지 1: "완벽하게", "100% 안전" 같은 과장 표현
+- 금지 2: 피부·건강에 대한 의학적 효능 언급
+- 금지 3: 확실하지 않은 호환 정보를 단정적으로 답변`,
+  prompt:
+`[역할] 너는 (주)엔공구 상담원이야
+[작업 목적] 반복 문의에 안전하게 답변할 수 있는 시스템 프롬프트 작성
+[입력 데이터 사용 규칙] 아래 조건을 모두 반영
+[작업 절차]
+1. 톤과 금지사항을 자연스러운 문장으로 구성
+2. 확실하지 않은 정보를 만났을 때의 대응 방식 포함
+[출력 형식] 시스템 프롬프트 한 단락 (5문장 이내)
+[검증 기준] 금지사항 3가지가 모두 문장에 반영되어야 함
+[금지] 조건에 없는 새로운 규칙 임의 추가 금지
+
+[조건]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 방금 만든 시스템 프롬프트를 적용해서, 다음 질문에 답변해줘: "이 제품 화이트 차에도 써도 되나요?"
+2) 아래 답변이 이 시스템 프롬프트를 어겼는지 판단해줘. 어겼다면 어느 조건을 어겼는지, 어떻게 고쳐야 하는지 설명해줘.
+   "네, 모든 차종·색상에 안전하며 발암물질 걱정 없이 사용 가능합니다."
+3) 사수가 이 시스템 프롬프트와 답변들을 검수할 때 가장 먼저 확인해야 할 포인트 3가지를 정리해줘.`
+},
+{
+  id:'c2-4', title:'본인 업무에 RCTF 프롬프트 대입해보기', stars:3,
+  checks:['1교시 RCTF 구조가 실제 업무 문장으로 자연스럽게 옮겨지는가?','자동화 영역과 검수 영역이 명확히 구분되는가?'],
+  data:
+`(주)엔공구 온라인사업팀 CS 담당자의 반복 업무 예시
+
+- 매주 접수되는 고객 문의를 카테고리별로 정리해 팀 공유
+- 매주 판매 데이터에서 인기 상품 TOP5를 뽑아 재고팀에 공유
+- 매월 지출 내역에서 누락값·이상치를 점검해 회계팀에 보고`,
+  prompt:
+`[역할] 너는 (주)엔공구 온라인사업팀 CS 담당자야
+[작업 목적] 반복 업무 목록 중 자동화 우선순위가 가장 높은 업무 1개를 선정하고, 그 업무의 RCTF 프롬프트를 설계
+[입력 데이터 사용 규칙] 아래 반복 업무 목록만 사용
+[작업 절차]
+1. 3가지 업무 중 "데이터를 다루거나 반복 질문에 답하는" 업무를 우선순위로 선정
+2. 선정한 업무의 Role / Context / Task / Format을 각각 한 문장으로 작성
+3. 완성된 RCTF 프롬프트 전체를 한 단락으로 조합
+[출력 형식] ① 선정 업무 + 선정 이유 1줄 ② Role/Context/Task/Format 표 ③ 완성 프롬프트
+[검증 기준] Task가 구체적인 결과물(표, 목록 등)로 끝나는지 확인
+[금지] 목록에 없는 업무 임의 추가 금지
+
+[반복 업무 목록]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 완성된 프롬프트를 실제 사용 중인 AI 도구에 그대로 입력해보고, 결과가 기대와 다른 부분이 있다면 어느 조건([역할]/[작업 목적]/[작업 절차]/[출력 형식]) 때문인지 짚어줘.
+2) 이 업무를 자동화했을 때 "AI에 맡길 부분"과 "내가 반드시 확인해야 할 부분"을 나눠줘.
+3) 이 구조를 본인이 실제로 맡고 있는 다른 업무 1가지에도 똑같이 대입해, 새 프롬프트를 하나 더 만들어보세요.`
+},
+{
+  id:'c2-5', title:'Gemini Gem으로 반복 업무 자동화하기', stars:3,
+  checks:['Gem 지침에 RCTF 구조가 그대로 반영되는가?','매번 프롬프트를 새로 쓰지 않고 데이터만 바꿔도 같은 품질의 결과가 나오는가?'],
+  data:
+`Gem 지식(Knowledge) 파일에 그대로 업로드할 카테고리 정의표
+
+| 카테고리 | 정의 | 예시 키워드 |
+|---|---|---|
+| 사용법 | 제품 사용 방법·사용량 문의 | 몇 번, 사용법, 어떻게 |
+| 호환성 | 차종·색상 등과의 호환 여부 문의 | 화이트, SUV, 써도 되나요 |
+| 배송 | 배송 일정·상태 문의 | 언제, 도착, 배송 |
+| 교환환불 | 환불·교환·반품 문의 | 환불, 교환, 반품 |`,
+  prompt:
+`gemini.google.com/gems → 새 Gem 만들기 → 아래 내용을 Instructions(지침)에 그대로 입력
+
+[Gem 이름] 엔공구 CS 문의 분류봇
+
+[역할] 너는 (주)엔공구 온라인사업팀 CS 문의를 분류하는 담당자야
+[작업 목적] 매주 새로 들어오는 문의 목록을 받으면, 지식 파일의 카테고리 정의표 기준으로 자동 분류하고 집계표를 만든다
+[입력 데이터 사용 규칙] 사용자가 붙여넣는 문의 목록과, 업로드된 카테고리 정의표만 근거로 사용한다
+[작업 절차]
+1. 문의를 카테고리 정의표 기준으로 분류
+2. 카테고리별 건수 집계
+3. 정의표에 없는 유형은 "미분류"로 표시
+[출력 형식] 항상 마크다운 표(카테고리 | 건수 | 대표 문의)로만 답한다
+[금지] 카테고리 정의표에 없는 새 카테고리를 임의로 만들지 않는다
+
+[Knowledge 파일] 위 데이터 블록의 카테고리 정의표를 파일로 첨부`,
+  chain:
+`1) Gem을 만든 뒤, 이번 실습 1번(VOC 문의 카테고리 자동 분류)에서 썼던 문의 목록을 그대로 붙여넣어 결과가 그때와 같은 형식으로 나오는지 비교해줘.
+2) 완전히 새로운 가상의 문의 목록을 넣었을 때도, 지침을 다시 쓰지 않고 동일한 표 형식으로 나오는지 확인해줘.
+3) 이 Gem을 팀원과 공유해서 다 같이 쓴다면, 지침 어디에 "최종 발송 전 사수 검수 필요" 문구를 추가하면 좋을지 제안해줘.
+4) 매번 대화창에 프롬프트를 복사-붙여넣기 하는 것과 Gem을 만들어 저장해두는 것, 업무 성격에 따라 각각 언제 유리한지 비교해줘.`
+}
+];
+
+/* ===================== RENDER ===================== */
+function escapeHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function itemTemplate(it, num){
+  const stars = '★'.repeat(it.stars);
+  const dataBlock = it.data ? codeBlock('DATA · 바로 붙여넣기', it.data, it.id+'-data') : '';
+  return (
+    '<div class="item-card" id="'+it.id+'">' +
+      '<button class="item-head" onclick="toggleItem(\''+it.id+'\')">' +
+        '<span class="item-num">'+String(num).padStart(2,'0')+'</span>' +
+        '<span class="item-title">'+it.title+'</span>' +
+        '<span class="item-stars">'+stars+'</span>' +
+        '<span class="chevron">⌄</span>' +
+      '</button>' +
+      '<div class="item-body"><div class="item-body-inner">' +
+        '<ul class="checks">' +
+          it.checks.map(function(c,i){ return '<li>✅ 체크포인트 '+(['①','②','③'][i]||'')+' '+c+'</li>'; }).join('') +
+        '</ul>' +
+        dataBlock +
+        codeBlock('PROMPT', it.prompt, it.id+'-prompt') +
+        codeBlock('CHAIN TASK', it.chain, it.id+'-chain') +
+      '</div></div>' +
+    '</div>'
+  );
+}
+
+function codeBlock(label, text, id){
+  return (
+    '<div class="code-block">' +
+      '<div class="code-head"><span>'+label+'</span><button class="copy-btn" onclick="copyText(\''+id+'\', this)">복사</button></div>' +
+      '<pre id="'+id+'">'+escapeHtml(text)+'</pre>' +
+    '</div>'
+  );
+}
+
+function renderItems(items, containerId){
+  document.getElementById(containerId).innerHTML = items.map(function(it,i){ return itemTemplate(it, i+1); }).join('');
+}
+
+function renderToc(items, containerId){
+  document.getElementById(containerId).innerHTML = items.map(function(it,i){
+    return '<a href="#" onclick="gotoItem(\''+it.id+'\'); return false;"><span>'+String(i+1).padStart(2,'0')+' · '+it.title+'</span><span class="toc-star">'+'★'.repeat(it.stars)+'</span></a>';
+  }).join('');
+}
+
+/* ===================== INTERACTIONS ===================== */
+function toggleLesson(id){ document.getElementById(id).classList.toggle('open'); }
+function toggleGuide(id){ document.getElementById(id).classList.toggle('open'); }
+function toggleItem(id){ document.getElementById(id).classList.toggle('open'); }
+
+function gotoItem(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('open');
+  setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+}
+
+function copyText(id, btn){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(function(){
+    const original = btn.textContent;
+    btn.textContent = '복사됨 ✓';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 1500);
+  }).catch(function(){
+    btn.textContent = '복사 실패';
+    setTimeout(function(){ btn.textContent = '복사'; }, 1500);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  renderItems(CH1_ITEMS, 'ch1-items');
+  renderItems(CH2_ITEMS, 'ch2-items');
+  renderToc(CH1_ITEMS, 'toc-ch1-list');
+  renderToc(CH2_ITEMS, 'toc-ch2-list');
+
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.1});
+  els.forEach(function(el){ io.observe(el); });
+});
+</script>
+
+</body>
+</html>
