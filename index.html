@@ -64,7 +64,6 @@
     padding:9px 10px; border-radius:7px; font-size:13px; color:#C7D0E5;
   }
   .toc-list a:hover{background:#1B2440; color:#fff;}
-  .toc-star{font-family:var(--mono); font-size:10.5px; color:var(--ember); flex:none;}
 
   /* ---------- SECTION SHELL ---------- */
   section{padding:56px 0;}
@@ -103,7 +102,10 @@
   }
   .item-num{font-family:var(--mono); font-size:12px; color:var(--glaze); font-weight:700; flex:none;}
   .item-title{font-size:14.5px; font-weight:700; flex:1;}
-  .item-stars{font-family:var(--mono); font-size:11px; color:var(--ember); flex:none;}
+  .item-dept{font-family:var(--mono); font-size:10px; background:var(--glaze-soft); color:var(--glaze); padding:2px 6px; border-radius:3px; flex:none;}
+  .alert-box{background:var(--alert-soft); border-left:3px solid var(--alert); border-radius:8px; padding:14px 16px; margin-bottom:16px;}
+  .alert-label{font-family:var(--mono); font-size:11px; color:var(--alert); font-weight:700; text-transform:uppercase; margin-bottom:4px;}
+  .alert-box p{font-size:13.5px; color:var(--text); margin:0;}
   .item-head .chevron{transition:transform .25s; color:var(--graphite); flex:none;}
   .item-card.open .item-head .chevron{transform:rotate(180deg);}
   .item-body{max-height:0; overflow:hidden; transition:max-height .45s ease;}
@@ -148,12 +150,11 @@
 
 <nav>
   <div class="nav-inner">
-    <span class="doc-id">WORKBOOK · N09-2026-SUMMER · v3.0</span>
+    
     <div class="nav-links">
-      <a href="#toc">목차</a>
-      <a href="#ch1">1교시</a>
-      <a href="#ch2">2교시</a>
-      <a href="#appendix">부록</a>
+      <a href="#ch1">CHAPTER 01</a>
+      <a href="#ch2">CHAPTER 02</a>
+      <a href="#advanced">CHAPTER 03</a>
     </div>
   </div>
 </nav>
@@ -161,155 +162,189 @@
 <header class="cover">
   <div class="wrap">
     <div class="cover-label">실습 교재 · (주)엔공구 청년미래플러스 생성형 AI 자동화 과정</div>
-    <h1>자동차 이커머스 데이터로 배우는<br>생성형 AI 업무 자동화</h1>
-    <p class="sub">(주)엔공구의 판매·QnA·지출·물류·생산 5종 데이터를 직접 다루며, 구매 패턴 분석부터 고객 응대 자동화까지 실습합니다.</p>
-    <div class="meta-strip">
-      <div><span>총 실습 시간</span><b>200분 · 2교시</b></div>
-      <div><span>사용 데이터셋</span><b>5종 · 부서별</b></div>
-      <div><span>준비물</span><b>노트북 · 무료 AI 계정</b></div>
-      <div><span>실습 방식</span><b>개인 실습</b></div>
-    </div>
+    <h1>자동차 이커머스를 위한 생성형 AI 자동화 실습</h1>
   </div>
 </header>
 
-<!-- ================= TOC ================= -->
-<section id="toc" class="toc-section">
-  <div class="wrap">
-    <div class="toc-panel reveal">
-      <div class="toc-lesson open" id="toc-lesson-1">
-        <button class="toc-lesson-head" onclick="toggleLesson('toc-lesson-1')">
-          <span class="tl-left"><span class="tl-no">1교시</span><h3>생성형 AI 이해 및 업무별 모델 활용</h3></span>
-          <span class="tl-left"><span class="tl-dur">100분</span><span class="chevron">⌄</span></span>
-        </button>
-        <div class="toc-lesson-body"><div class="toc-list" id="toc-ch1-list"></div></div>
-      </div>
-      <div class="toc-lesson" id="toc-lesson-2">
-        <button class="toc-lesson-head" onclick="toggleLesson('toc-lesson-2')">
-          <span class="tl-left"><span class="tl-no">2교시</span><h3>실무 적용 실습</h3></span>
-          <span class="tl-left"><span class="tl-dur">100분</span><span class="chevron">⌄</span></span>
-        </button>
-        <div class="toc-lesson-body"><div class="toc-list" id="toc-ch2-list"></div></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ================= 1교시 ================= -->
+
+<!-- ================= CHAPTER 01 ================= -->
 <section id="ch1" class="light">
   <div class="wrap">
-    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 01</span><span class="ch-dur">100분</span></div>
+    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 01</span></div>
     <h2 class="reveal">생성형 AI 이해 및 업무별 모델 활용</h2>
-    <p class="chapter-intro reveal">프롬프트 설계 기본 틀인 RCTF를 익히고, (주)엔공구 판매 데이터를 직접 분석하며 업무에 AI를 적용하는 방법을 실습합니다.</p>
+    <p class="chapter-intro reveal">AI 도구 로그인·보안 설정을 마친 뒤 RCTF 프레임워크를 익히고, 본인 업무에 직접 적용한 뒤 팀별 예제 실습으로 심화합니다.</p>
 
     <div class="guide reveal" id="guide-ch1">
       <button class="guide-head" onclick="toggleGuide('guide-ch1')">
         <span>실습 가이드 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
       </button>
       <div class="guide-body"><div class="guide-body-inner">
-        각 실습은 <b>데이터 → 프롬프트 → 후속 질문</b> 3단계로 구성되어 있습니다.
+        실습 순서: <b>로그인·설정 → RCTF 이론 → 본인 업무 직접 작성 → 팀별 예제 → 3가지 AI 비교</b>
         <ul>
-          <li>data 블록을 복사해 ChatGPT / Claude / Gemini 중 사용 중인 AI 채팅창에 붙여넣습니다.</li>
-          <li>이어서 prompt 블록을 그대로 붙여넣어 실행합니다.</li>
-          <li>결과를 확인한 뒤 chain task의 후속 질문을 이어서 입력해 실습을 심화합니다.</li>
+          <li>실습 1은 본인이 매주 반복하는 업무 하나를 골라 RCTF 4칸을 직접 채우는 것입니다.</li>
+          <li>팀별 실습은 본인 팀 예제부터 시작하고, 시간이 남으면 다른 팀 예제도 실행해보세요.</li>
+          <li>실습 2는 실습 1에서 만든 프롬프트를 3가지 AI에 그대로 넣고 결과 차이를 비교합니다.</li>
         </ul>
-        정답을 찾는 게 목적이 아니라, 조건(RCTF)을 바꿨을 때 결과가 어떻게 달라지는지 직접 확인하는 것이 이번 교시의 목표입니다.
+        정답이 없습니다. RCTF 조건을 바꿨을 때 결과가 어떻게 달라지는지 직접 확인하는 것이 목표입니다.
+      </div></div>
+    </div>
+
+    <div class="guide reveal" style="margin-bottom:28px;">
+      <button class="guide-head" onclick="this.closest('.guide').classList.toggle('open')">
+        <span>생성형 AI의 작동원리 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
+      </button>
+      <div class="guide-body"><div class="guide-body-inner">
+        <p style="margin-bottom:12px;">생성형 AI(ChatGPT, Claude, Gemini 등)는 다음과 같이 동작합니다.</p>
+        <ol style="padding-left:20px; font-size:13.5px; color:var(--graphite); line-height:1.8;">
+          <li><b>입력:</b> 사용자가 "○○의 크기는?"이라고 질문</li>
+          <li><b>패턴 검색:</b> 학습 데이터에서 유사한 패턴 찾기</li>
+          <li><b>확률 계산:</b> 다음 단어의 출현 확률 계산 (예: 숫자A: 0.7, 숫자B: 0.3…)</li>
+          <li><b>단어 생성:</b> 확률이 높은 순서대로 단어 출력</li>
+          <li><b>자신감 표현:</b> 검증 과정 없이 그대로 전달</li>
+        </ol>
+        <div class="alert-box" style="margin-top:14px;">
+          <div class="alert-label">핵심 · 할루시네이션(환각 현상) 주의</div>
+          <p>AI는 "정확한 답"과 "그럴듯한 답"을 구분하지 못하므로, 학습 데이터에 없는 내용도 진실처럼 지어낼 수 있습니다. 이 실습에서 계속 "검증 기준"과 "금지"를 프롬프트에 넣는 이유가 여기에 있습니다.</p>
+        </div>
+        <div style="margin-top:20px; border-top:1px solid var(--line); padding-top:16px;">
+          <p style="font-size:13px; font-weight:700; margin-bottom:10px; color:var(--text);">주요 도구별 특징 — (주)엔공구 업무 관점</p>
+          <table class="rctf" style="margin:0;">
+            <tr><td class="k">ChatGPT</td><td>이미지 생성이 강하고, GPTs로 반복 업무를 저장해 재사용할 수 있음 → 상세페이지 이미지 초안, 커스텀 CS 응대봇에 적합</td></tr>
+            <tr><td class="k">Claude</td><td>긴 문서·대용량 표 처리에 강하고, 결과물을 코드 실행으로 바로 확인 가능 → 판매데이터 분석, 보고서 초안 작성에 적합</td></tr>
+            <tr><td class="k">Gemini</td><td>Gmail·Docs·Sheets 등 구글 워크스페이스와 연동되고, Gem으로 반복 업무를 저장할 수 있음 → 이메일 자동 발송, 반복 업무 자동화에 적합</td></tr>
+          </table>
+        </div>
       </div></div>
     </div>
 
     <table class="rctf reveal">
       <tr><th colspan="2">RCTF 프레임워크</th></tr>
-      <tr><td class="k">Role</td><td>AI에게 맡길 역할. "너는 ○○팀 담당자야"처럼 관점을 지정합니다.</td></tr>
+      <tr><td class="k">Role</td><td>AI에게 부여할 전문가 페르소나. "너는 10년 경력의 데이터 분석가야"처럼 실제 전문가 역할을 지정합니다. 담당자 본인이 아닌, 전문 지식을 가진 역할을 줄수록 답변 품질이 높아집니다.</td></tr>
       <tr><td class="k">Context</td><td>판단에 필요한 배경 정보. 데이터, 상황, 제약 조건을 함께 제공합니다.</td></tr>
       <tr><td class="k">Task</td><td>구체적으로 해야 할 작업. 결과물을 명확히 지정합니다.</td></tr>
       <tr><td class="k">Format</td><td>결과를 받고 싶은 형태. 표, 목록, 요약 등으로 지정합니다.</td></tr>
     </table>
 
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;" class="reveal">
+      <div>
+        <h4 style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">❌ 나쁜 예</h4>
+        <div class="code-block">
+          <div class="code-head"><span>BAD</span></div>
+          <pre>"판매 데이터 분석해줘"</pre>
+        </div>
+        <p style="font-size:12px; color:var(--alert); padding:12px; background:var(--alert-soft); border-radius:8px;">문제: Role·Context·Task·Format 모두 모호함</p>
+      </div>
+      <div>
+        <h4 style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">✓ 좋은 예</h4>
+        <div class="code-block">
+          <div class="code-head"><span>GOOD</span></div>
+          <pre>[역할] 데이터 분석 전문가
+[작업 목적] 이번 달 판매 데이터 분석
+[작업 절차] TOP3 제품 분석
+[출력 형식] 마크다운 표</pre>
+        </div>
+        <p style="font-size:12px; color:var(--ok); padding:12px; background:var(--ok-soft); border-radius:8px;">개선: 모든 요소가 명확함</p>
+      </div>
+    </div>
+
     <div id="ch1-items"></div>
   </div>
 </section>
 
-<!-- ================= 2교시 ================= -->
+<!-- ================= CHAPTER 02 ================= -->
 <section id="ch2">
   <div class="wrap">
-    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 02</span><span class="ch-dur">100분</span></div>
-    <h2 class="reveal">실무 적용 실습</h2>
-    <p class="chapter-intro reveal">(주)엔공구 고객 Q&A · VOC 데이터를 활용해 자동응답을 설계하고, 본인 업무에 AI를 적용할 영역을 정리합니다.</p>
+    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 02</span></div>
+    <h2 class="reveal">AI Agent와 자동화</h2>
+    <p class="chapter-intro reveal">Gemini Gems와 ChatGPT Projects를 직접 만들어보고, 본인 업무에 맞는 나만의 AI 비서를 완성합니다.</p>
+
+    <div class="item-card reveal" style="background:var(--ink); border-color:var(--line-dark); margin-bottom:28px;">
+      <div style="padding:16px 18px; display:flex; align-items:center; gap:14px;">
+        <span class="item-title" style="color:#fff;">직무별 자동화 아이디어 매칭기 — 본인 직무를 선택해보세요</span>
+      </div>
+      <div class="item-body-inner" style="padding:0 20px 22px;">
+        <p style="color:#B7BED2; font-size:13px; margin-bottom:14px;">내 직무에서 자동화하기 좋은 반복 업무와 추천 Gem 시스템 프롬프트를 확인해보세요. 아래 실습 1~6번과는 별개로, Gem을 만들기 전 방향을 잡는 용도로 활용하세요.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+          <select id="job-select" style="flex:1; min-width:180px; background:#0F1526; border:1px solid var(--line-dark); color:#E7E9F2; font-family:var(--mono); font-size:12.5px; padding:10px 12px; border-radius:7px;">
+            <option value="cs">CS / 고객응대</option>
+            <option value="marketing">온라인마케팅 / 콘텐츠</option>
+            <option value="data">데이터분석 / MD</option>
+            <option value="logistics">물류 / 재고운영</option>
+            <option value="account">회계 / 정산</option>
+          </select>
+          <button class="copy-btn" style="padding:10px 20px; font-size:12.5px; background:linear-gradient(90deg, var(--ember), #E89A4E); color:#1B1102; border:none; font-weight:700;" onclick="showJobMatch()">자동화 아이디어 보기</button>
+        </div>
+        <div id="job-match-result"></div>
+      </div>
+    </div>
 
     <div class="guide reveal" id="guide-ch2">
       <button class="guide-head" onclick="toggleGuide('guide-ch2')">
         <span>실습 가이드 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
       </button>
       <div class="guide-body"><div class="guide-body-inner">
-        1교시가 "데이터를 분석하는 실습"이었다면, 2교시는 "고객에게 직접 노출되는 응답을 만드는 실습"입니다.
+        <b>Gemini Gems → ChatGPT Projects → 본인 업무 직접 만들기</b> 순서로 진행됩니다.
         <ul>
-          <li>같은 data → prompt → chain task 구조를 따르되, 마지막 항목은 사수 검토 관점의 셀프체크로 마무리합니다.</li>
-          <li>AI가 만든 응답을 그대로 쓰지 않고, 왜 위험할 수 있는지 스스로 판단하는 연습이 포함되어 있습니다.</li>
-          <li>5번(Gemini Gem)은 시간이 남으면 진행하는 심화 실습입니다. 1~4번을 먼저 마치고 여유가 있을 때 도전하세요.</li>
+          <li>위 직무별 매칭기에서 방향을 먼저 잡은 뒤 실습을 시작하세요.</li>
+          <li>Gemini와 ChatGPT 중 본인이 더 자주 쓰는 것 하나를 골라 집중해도 됩니다.</li>
+          <li>마지막 실습에서 본인 업무 시스템 프롬프트를 직접 작성하고 저장하는 것까지 완성하는 것이 목표입니다.</li>
         </ul>
       </div></div>
     </div>
 
     <div id="ch2-items"></div>
-
-    <h3 style="font-size:18px; margin:44px 0 14px;">본인 업무 적용</h3>
-    <p style="color:var(--graphite); font-size:13.5px; margin-bottom:20px;">1교시의 RCTF와 2교시의 검수 기준을 본인 업무에 옮겨봅니다. 자동화할 영역과 사람이 남아야 할 영역을 나누는 것이 핵심입니다.</p>
-    <table class="rctf">
-      <tr><th>AI에 맡길 영역</th><th>사람이 봐야 할 영역</th></tr>
-      <tr><td>반복 문의 1차 분류, 데이터 집계·요약, 초안 답변 작성</td><td>최종 답변 검수, 과장·오정보 표현 확인, 예외 상황 판단</td></tr>
-      <tr><td>표기 오류 없는 데이터의 패턴 분석</td><td>표기 불일치 등 데이터 품질 점검</td></tr>
-    </table>
   </div>
 </section>
 
-<!-- ================= 부록 ================= -->
-<section id="appendix" class="light">
+<!-- ================= CHAPTER 03 ================= -->
+<section id="advanced" class="light">
   <div class="wrap">
-    <div class="chapter-head reveal"><span class="ch-no">APPENDIX</span></div>
-    <h2 class="reveal">부록 — 실습 데이터 사전</h2>
-    <p class="chapter-intro reveal">실습 중 참고할 (주)엔공구 5종 데이터셋의 구조와 특징입니다.</p>
+    <div class="chapter-head reveal"><span class="ch-no">CHAPTER 03</span></div>
+    <h2 class="reveal">부서별 실습 + GAS 자동화</h2>
+    <p class="chapter-intro reveal">CHAPTER 01·02를 마친 뒤 진행하는 심화모듈입니다.</p>
 
-    <div class="ds-card reveal">
-      <div class="ds-head"><h4>온라인사업팀_판매데이터</h4><span>150 rows · 2024–2026</span></div>
-      <div class="ds-body">
-        <div class="ds-cols"><span>주문번호</span><span>연령대</span><span>성별</span><span>차종</span><span>차색상</span><span>구매제품</span><span>구매금액</span></div>
-        <p class="ds-note">여름(5~9월)은 유리막·발수코팅·워터리스, 겨울(12~2월)은 워셔액·성에제거·레더보호제 중심으로 구성되어 있습니다.</p>
-      </div>
+    <div class="guide reveal" id="guide-dept">
+      <button class="guide-head" onclick="toggleGuide('guide-dept')">
+        <span>부서별 실습 — RCTF 심화 예제 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
+      </button>
+      <div class="guide-body"><div class="guide-body-inner">
+        <ul>
+          <li>본인 부서 항목을 먼저 실습하고, 시간이 남으면 다른 부서 항목도 확인해보세요.</li>
+          <li>부서마다 Role·Context가 어떻게 구체적으로 바뀌는지 비교하면 RCTF 응용 감각이 빠르게 늘어납니다.</li>
+        </ul>
+      </div></div>
     </div>
-    <div class="ds-card reveal">
-      <div class="ds-head"><h4>온라인사업팀_QnA</h4><span>1~6월 흐름</span></div>
-      <div class="ds-body">
-        <div class="ds-cols"><span>문의일자</span><span>질문</span><span>카테고리</span></div>
-        <p class="ds-note">1~2월은 성에·워셔액 문의, 5~6월은 유리막·벌레제거 문의로 흐름이 전환됩니다.</p>
+
+    <div id="dept-items"></div>
+
+    <div style="margin-top:44px;">
+      <div class="chapter-head reveal"><span class="ch-no" style="color:var(--ember);">GAS 자동화</span></div>
+      <h3 class="reveal" style="font-size:20px; font-weight:800; margin-bottom:8px;">Google Apps Script 자동화 실습</h3>
+      <p class="chapter-intro reveal">Gem에 매번 데이터를 붙여넣어 결과를 받아오던 작업을, 구글시트 버튼 하나로 AI가 자동 분석·입력하는 구조로 만들어보는 실습입니다. 코드를 몰라도 템플릿을 그대로 따라 하면 완성됩니다.</p>
+
+      <div class="guide reveal" id="guide-ch3">
+        <button class="guide-head" onclick="toggleGuide('guide-ch3')">
+          <span>GAS 실습 가이드 (클릭하여 펼치기)</span><span class="chevron">⌄</span>
+        </button>
+        <div class="guide-body"><div class="guide-body-inner">
+          <ul>
+            <li>위 RCTF 프롬프트를 AI에 입력하면 Code.gs 코드가 생성됩니다.</li>
+            <li>CODE.GS 블록을 복사해서 Apps Script에 붙여넣기만 하면 동작합니다. 코드를 이해하지 않아도 됩니다.</li>
+            <li>⚠️ 처음 실행 시 권한 허용 팝업이 뜨는 것은 정상입니다.</li>
+          </ul>
+        </div></div>
       </div>
-    </div>
-    <div class="ds-card reveal">
-      <div class="ds-head"><h4>회계팀_지출내역</h4><span>누락값 포함</span></div>
-      <div class="ds-body">
-        <div class="ds-cols"><span>지출일자</span><span>항목</span><span>거래처</span><span>금액</span></div>
-        <p class="ds-note">5~6월 여름 원자재 선매입(소낙스 대량 발주 등) 패턴이 포함되어 있으며, 누락값 행은 빨간색으로 표시되어 있습니다.</p>
-      </div>
-    </div>
-    <div class="ds-card reveal">
-      <div class="ds-head"><h4>물류운영팀_배송이슈</h4><span>시즌 연동</span></div>
-      <div class="ds-body">
-        <div class="ds-cols"><span>이슈일자</span><span>제품</span><span>이슈유형</span></div>
-        <p class="ds-note">겨울엔 성에제거제, 여름엔 유리막·폼랜스 품절 흐름으로 시즌 리얼리티를 반영했습니다.</p>
-      </div>
-    </div>
-    <div class="ds-card reveal">
-      <div class="ds-head"><h4>생산팀_생산일지</h4><span>수식 자동화</span></div>
-      <div class="ds-body">
-        <div class="ds-cols"><span>LOT</span><span>생산수량</span><span>불량수</span><span>불량률</span></div>
-        <p class="ds-note">불량률은 <b style="font-family:var(--mono);">=ROUND(E/D*100,2)</b> 수식으로 자동 계산되며, 불량 20개 이상 행은 경고색으로 표시됩니다.</p>
-      </div>
+
+      <div id="ch3-items"></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-inner">
-    <span>WORKBOOK · N09-2026-SUMMER</span>
-    <span>(주)엔공구 자동차 이커머스 AI 자동화 실습 교재 · v3.0</span>
+    <span>WORKBOOK · (주)엔공구</span>
+    <span>(주)엔공구 자동차 이커머스 AI 자동화 실습 교재 · v6.0</span>
   </div>
 </footer>
 
@@ -334,7 +369,7 @@ const CH1_ITEMS = [
   prompt:
 `아래는 (주)엔공구 온라인사업팀에 접수된 이번 주 고객 문의 목록이다. 팀 공유 채널에 올릴 주간 문의 요약을 만들어줘.
 
-[역할] 너는 (주)엔공구 온라인사업팀 CS 담당자야
+[역할] 너는 고객문의 분류 및 팀 커뮤니케이션 전문가야
 [작업 목적] 이번 주 문의를 카테고리별로 정리해 팀 공유 채널에 공유할 수 있는 요약본 작성
 [입력 데이터 사용 규칙] 아래 문의 목록에 있는 내용만 사용하고, 없는 내용은 지어내지 말 것
 [작업 절차]
@@ -351,259 +386,396 @@ const CH1_ITEMS = [
 `1) 이 요약을 팀장 보고용 한 줄 요약("이번 주 문의는 총 N건, 가장 많은 유형은 ○○")으로 압축해줘.
 2) "배송" 카테고리 문의만 따로 뽑아 물류운영팀에 전달할 메시지로 만들어줘.
 3) 이 프롬프트의 [역할][작업 목적][입력 데이터 사용 규칙][작업 절차][출력 형식][검증 기준][금지] 중 하나를 빼면 결과가 어떻게 달라질지 하나 골라 설명해줘.`
-},
-{
-  id:'c1-2', title:'구매 데이터 자연어 분석 — TOP5 상품 뽑기', stars:1,
-  checks:['조건(연령대·성별·차종·차색상)을 정확히 필터링하는가?','근거 없는 제품을 지어내지 않는가?'],
-  data:
-`(주)엔공구_판매데이터 (일부)
-
-| 주문번호 | 연령대 | 성별 | 차종 | 차색상 | 구매제품 | 구매금액 |
-|---|---|---|---|---|---|---|
-| ORD-10231 | 20대 | 남 | SUV | 검정 | 고광택 왁스 | 38,000 |
-| ORD-10247 | 20대 | 남 | SUV | 검정 | 하부세차 대용량 | 52,000 |
-| ORD-10255 | 20대 | 남 | SUV | 검정 | 폼랜스 | 28,000 |
-| ORD-10262 | 30대 | 여 | 세단 | 흰색 | 실내 크리너 | 21,000 |
-| ORD-10271 | 20대 | 남 | SUV | 검정 | 유리막 코팅제 | 65,000 |
-| ORD-10288 | 40대 | 남 | SUV | 은색 | 발수 코팅제 | 45,000 |
-| ORD-10299 | 20대 | 남 | SUV | 검정 | 하부세차 대용량 | 51,000 |`,
-  prompt:
-`[역할] 너는 (주)엔공구 온라인사업팀 데이터 담당자야
-[작업 목적] 특정 고객군의 구매 패턴을 파악해 마케팅팀에 공유할 인사이트 도출
-[입력 데이터 사용 규칙] 아래 판매데이터 표에 있는 주문만 사용
-[작업 절차]
-1. 20대 남성, SUV, 검정색 차주 주문만 필터링
-2. 구매제품별 건수 집계
-3. TOP5로 정렬
-[출력 형식] 표 (순위 | 제품명 | 건수 | 합계금액)
-[검증 기준] 조건에 맞는 주문이 5건 미만이면 있는 만큼만 표시
-[금지] 표에 없는 제품 생성 금지
-
-[판매데이터]
-(위 데이터 블록 붙여넣기)`,
-  chain:
-`1) 같은 조건에서 "차색상"만 흰색으로 바꿔 TOP5를 다시 뽑아줘. 검정색과 어떤 차이가 있는지 2줄로 설명해줘.
-2) TOP5 결과를 마케팅팀에 보낼 메시지 초안으로 바꿔줘.
-3) "검정색 SUV 차주는 광택·왁스류를 많이 산다"는 결과를, 다른 조건(연령대·성별)에서도 유지되는지 검증할 방법을 제안해줘.`
-},
-{
-  id:'c1-3', title:'구매 데이터 시각화 — 히트맵·그래프 요청', stars:2,
-  checks:['코드 실행 기능이 실제 표에 있는 값만으로 차트를 그리는가?','차트에서 읽을 수 있는 인사이트를 텍스트로도 설명해주는가?'],
-  data:
-`(위 실습의 판매데이터를 그대로 재사용합니다. 업로드한 대화창에 이어서 입력하세요.)`,
-  prompt:
-`[역할] 너는 (주)엔공구 온라인사업팀 데이터 담당자야
-[작업 목적] 연령대·차색상에 따른 구매 경향을 한눈에 보여줄 시각 자료 제작
-[입력 데이터 사용 규칙] 앞서 업로드한 판매데이터만 사용
-[작업 절차]
-1. 연령대별 구매 카테고리 히트맵 생성
-2. 차색상별 선호 제품군 막대그래프 생성
-[출력 형식] 차트 2개 + 각 차트 아래 3줄 요약
-[검증 기준] 데이터에 없는 연령대·색상은 축에 표시하지 말 것
-[금지] 임의의 수치로 축을 채우는 것 금지
-
-연령대별 구매 카테고리 히트맵과 차색상별 선호 제품군 막대그래프를 각각 그려줘.`,
-  chain:
-`1) 히트맵에서 가장 뚜렷하게 드러나는 패턴 1가지를 팀장 보고용 한 줄로 요약해줘.
-2) 같은 데이터로 "구매금액" 기준 차트도 하나 더 그려줘. 건수 기준과 어떻게 다른지 설명해줘.
-3) 이 결과를 방법 A(자연어 질의)로 얻은 결과와 비교했을 때, 어떤 상황에 방법 B(차트)가 더 유리한지 정리해줘.`
-},
-{
-  id:'c1-4', title:'차종 표기 정합성 점검 — 데이터 정제 요청', stars:2,
-  checks:['AI가 표기 불일치를 스스로 발견하는가, 시켜야만 찾는가?','정규화 이후 집계가 실제로 합쳐지는가?'],
-  data:
-`(주)엔공구_판매데이터 (차종 표기 오류 포함)
-
-| 주문번호 | 차종 표기 |
-|---|---|
-| ORD-11042 | 그랜저 |
-| ORD-11055 | 그랜저IG |
-| ORD-11071 | grandeur |
-| ORD-11088 | 쏘나타 |
-| ORD-11093 | 소나타 |
-| ORD-11101 | Sonata |`,
-  prompt:
-`[역할] 너는 (주)엔공구 데이터 정제 담당자야
-[작업 목적] 분석 전 차종 표기 오류를 찾아내고 정규화하는 것
-[입력 데이터 사용 규칙] 아래 표의 값만 사용
-[작업 절차]
-1. 동일 차종인데 다르게 표기된 값 그룹 찾기
-2. 대표 표기 하나로 통일하는 매핑 표 제안
-3. 정규화 전/후 집계 결과 비교
-[출력 형식] ① 매핑 표(원본표기 → 정규화표기) ② 정규화 전/후 집계 비교표
-[검증 기준] 실제로 다른 차종을 같은 것으로 합치지 않았는지 표기 근거를 함께 제시
-[금지] 표에 없는 차종 임의 추가 금지
-
-[데이터]
-(위 데이터 블록 붙여넣기)`,
-  chain:
-`1) 같은 방식으로 "성별" 컬럼에도 표기 오류(남/남성/M 등)가 있다고 가정하고, 어떤 정규화 규칙을 세워야 할지 제안해줘.
-2) 앞으로 이런 표기 오류를 애초에 방지하려면 주문 입력 단계에서 어떤 장치가 필요한지 3가지 제안해줘.
-3) 이 실습 결과를 회계팀·생산팀 데이터 담당자에게 공유할 "데이터 정합성 점검 체크리스트"로 정리해줘.`
 }
 ];
 
 const CH2_ITEMS = [
 {
-  id:'c2-1', title:'VOC 문의 카테고리 자동 분류', stars:1,
-  checks:['카테고리 분류 기준이 명확하게 지켜지는가?','건수 집계가 실제 데이터와 일치하는가?'],
-  data:
-`(주)엔공구_QnA (일부)
-
-| 문의일자 | 질문 |
-|---|---|
-| 1/8 | 겨울철에 워셔액이 얼어요, 부동액 비율 어떻게 하나요? |
-| 1/15 | 성에가 자꾸 껴서 아침마다 힘든데 추천 제품 있나요? |
-| 2/3 | 워셔액 다 썼는데 재구매 알림 되나요? |
-| 5/6 | 유리막 코팅하면 빗물이 정말 안 맺히나요? |
-| 5/20 | 벌레 자국이 안 지워지는데 전용 제품 있나요? |
-| 6/2 | 유리막 코팅 주기가 어떻게 되나요? |`,
+  id:'c2-practice', title:'본인 업무에 맞는 Gem / Project 직접 만들기',
+  checks:['시스템 프롬프트에 Role·Task·Format이 모두 반영되어 있는가?','저장 후 실제 데이터를 넣었을 때 원하는 형식으로 결과가 나오는가?'],
+  promptLabel:'본인 업무 시스템 프롬프트 작성 워크시트',
   prompt:
-`[역할] 너는 (주)엔공구 온라인사업팀 VOC 담당자야
-[작업 목적] 문의 유형을 카테고리화해 반복 질문 대응 자료의 기초 자료로 활용
-[입력 데이터 사용 규칙] 아래 문의 목록만 사용
-[작업 절차]
-1. 문의를 성에제거 / 워셔액 / 유리막 / 벌레제거 / 기타로 분류
-2. 카테고리별 건수 집계
-[출력 형식] 표 (카테고리 | 건수 | 대표 문의)
-[검증 기준] 카테고리가 애매하면 "기타"로 분류하고 이유를 한 줄로 남길 것
-[금지] 문의에 없는 카테고리 임의 생성 금지
+`아래 칸을 채워서 본인만의 시스템 프롬프트를 완성하세요.
 
-[문의 목록]
-(위 데이터 블록 붙여넣기)`,
+[역할]
+당신은 _______ 분야의 _______ 전문가입니다.
+
+[작업]
+입력된 _______ 내용을 _______ 형식으로 정리해주세요.
+
+[형식]
+_______ (예: 표 / 3줄 요약 / 이메일 초안 등)
+
+[금지]
+확인되지 않은 _______ 는 단정하지 마세요.
+_______ 표현은 사용하지 마세요.
+
+완성 후 → 아래 중 하나에 붙여넣기
+• Gemini Gems: gemini.google.com/gems/view?hl=ko
+• ChatGPT Projects: chatgpt.com/projects
+• Claude 프로젝트: claude.ai/projects`,
+  data:
+`[팀별 시스템 프롬프트 힌트]
+
+회계팀
+→ "당신은 재무·회계 분야의 전문가입니다. 입력된 지출내역에서 금액이 비어있거나 확인이 필요한 행만 따로 표시해주세요."
+
+전략기획팀
+→ "당신은 이커머스 시장 분석 전문가입니다. 입력된 경쟁사 데이터를 SWOT 표로 정리하고 차별화 포인트 3가지를 제안해주세요."
+
+온라인사업팀(CS)
+→ "당신은 10년 경력의 이커머스 고객응대 전문가입니다. 고객 문의를 호환성/사용법/배송/교환환불로 분류하고 건수를 집계해주세요."
+
+온라인사업팀(MD)
+→ "당신은 자동차 용품 시장에 정통한 데이터 분석 전문가입니다. 판매 데이터에서 시즌별 TOP5 상품을 뽑고 인사이트 3줄을 붙여주세요."
+
+물류및운영팀
+→ "당신은 이커머스 물류 운영 전문가입니다. 배송이슈 목록에서 우선순위(높음/중간/낮음)를 분류하고 고객 안내 메시지 초안을 작성해주세요."
+
+생산팀
+→ "당신은 제조 품질관리 전문가입니다. 생산일지에서 불량률을 계산하고 반복 발생 불량유형을 짚어주세요."`,
   chain:
-`1) 가장 많이 반복되는 문의 TOP3를 뽑아, 상품 상세페이지에 넣을 FAQ 초안으로 만들어줘.
-2) "기타"로 분류된 문의가 있다면, 어떤 새 카테고리를 추가하면 좋을지 제안해줘.
-3) 이 분류 결과가 실제 문의 내용과 맞는지 검수할 때, 사수라면 어떤 부분을 가장 먼저 확인할지 정리해줘.`
+`저장 완료 후 확인 체크리스트
+1) Gem/Project에 더미데이터 붙여넣어 결과 확인
+2) 결과에서 AI가 임의로 지어낸 수치가 없는지 확인
+3) 팩트체크 3단계 적용: ① 의심 → ② 원본 대조 → ③ 수정 후 사용
+4) 내일 실제 업무에 바로 쓸 수 있는 상태인지 확인`
 },
 {
-  id:'c2-2', title:'시즌별 VOC 트렌드 분석', stars:2,
-  checks:['겨울/여름 문의 유형 차이를 데이터로 설명하는가?','시즌 전환 시점을 근거 있게 짚어주는가?'],
-  data:
-`(주)엔공구_QnA (1~6월 카테고리 태깅본)
-
-| 월 | 카테고리 |
-|---|---|
-| 1 | 성에제거 |
-| 1 | 워셔액 |
-| 1 | 성에제거 |
-| 2 | 성에제거 |
-| 2 | 워셔액 |
-| 2 | 워셔액 |
-| 5 | 유리막 |
-| 5 | 벌레제거 |
-| 5 | 유리막 |
-| 6 | 유리막 |
-| 6 | 벌레제거 |
-| 6 | 벌레제거 |`,
+  id:'c2-gem', title:'Gemini Gems 만들기',
+  checks:['시스템 프롬프트가 저장되어 반복 입력 없이 동작하는가?','Gem에 데이터를 붙여넣었을 때 지정한 형식으로 결과가 나오는가?'],
+  promptLabel:'STEP BY STEP — Gemini Gems 생성 순서',
   prompt:
-`[역할] 너는 (주)엔공구 온라인사업팀 VOC 담당자야
-[작업 목적] 시즌별 문의 트렌드를 파악해 재고·인력 대응 계획에 참고
-[입력 데이터 사용 규칙] 아래 월별 카테고리 데이터만 사용
-[작업 절차]
-1. 1~2월과 5~6월 카테고리 건수를 각각 집계
-2. 두 시즌의 상위 카테고리를 비교
-[출력 형식] 비교표 (카테고리 | 겨울 건수 | 여름 건수) + 3줄 요약
-[검증 기준] 데이터에 없는 월(3~4월 등)은 언급하지 말 것
-[금지] 임의로 트렌드를 과장하는 표현 금지
+`STEP 1. https://gemini.google.com/gems/view?hl=ko 접속 → "새 Gem" 클릭
 
-[데이터]
-(위 데이터 블록 붙여넣기)`,
+STEP 2. "새 Gem 만들기" 클릭
+
+STEP 3. Gem 이름 입력
+예) 엔공구 CS 응대봇 / 엔공구 판매분석 어시스턴트
+
+STEP 4. 지침(Instructions) 입력
+아래 예시 중 본인 업무에 맞는 것 복사 후 붙여넣기
+
+STEP 5. "저장" 클릭 → 완료`,
   chain:
-`1) 이 결과를 바탕으로 다음 시즌(여름 → 가을) 문의가 어떤 카테고리로 전환될지 가설을 세워줘. 확실하지 않다면 "가설"이라고 명시해줘.
-2) 이 시즌별 트렌드를 재고팀에 공유할 메시지로 만들어줘 (성에제거제·유리막코팅제 재고 확보 시점 제안 포함).
-3) 이런 시즌 트렌드 분석에서 AI가 과거 데이터만 보고 미래를 단정하면 안 되는 이유를 한 줄로 설명해줘.`
+`실습: Gem 저장 후 테스트
+1) 저장된 Gem 열기
+2) 아래 문장을 그대로 입력해보기:
+   "이번 주 판매 데이터입니다. [더미데이터 시트 내용 복사 붙여넣기]"
+3) 결과가 지침에서 지정한 형식으로 나오는지 확인
+4) 지침 조건 하나를 바꿔보고 결과가 달라지는지 비교`
 },
 {
-  id:'c2-3', title:'고객 응대 시스템 프롬프트 설계 + 오답 검증', stars:2,
-  checks:['금지사항이 실제 답변에 반영되는가?','AI 스스로 위험한 답변을 걸러낼 수 있는가?'],
-  data:
-`시스템 프롬프트에 반영할 조건
-
-- 톤: 친절하고 간결한 존댓말
-- 금지 1: "완벽하게", "100% 안전" 같은 과장 표현
-- 금지 2: 피부·건강에 대한 의학적 효능 언급
-- 금지 3: 확실하지 않은 호환 정보를 단정적으로 답변`,
+  id:'c2-gpt', title:'ChatGPT & Claude 프로젝트 만들기',
+  checks:['지침이 저장되어 매번 새로 입력하지 않아도 동작하는가?','파일을 첨부했을 때 매번 업로드 없이 분석이 가능한가?'],
+  promptLabel:'Gems와 다른 점 한 줄 + STEP BY STEP',
   prompt:
-`[역할] 너는 (주)엔공구 상담원이야
-[작업 목적] 반복 문의에 안전하게 답변할 수 있는 시스템 프롬프트 작성
-[입력 데이터 사용 규칙] 아래 조건을 모두 반영
-[작업 절차]
-1. 톤과 금지사항을 자연스러운 문장으로 구성
-2. 확실하지 않은 정보를 만났을 때의 대응 방식 포함
-[출력 형식] 시스템 프롬프트 한 단락 (5문장 이내)
-[검증 기준] 금지사항 3가지가 모두 문장에 반영되어야 함
-[금지] 조건에 없는 새로운 규칙 임의 추가 금지
+`💡 Gems와 다른 점
+Gems는 역할(시스템 프롬프트)만 저장하지만,
+Projects는 파일·이전 대화 맥락까지 함께 저장되어
+데이터를 매번 붙여넣지 않아도 됩니다.
 
-[조건]
+─────────────────────────────
+ChatGPT Projects
+URL: https://chatgpt.com/projects
+
+STEP 1. 접속 후 "프로젝트 만들기" 클릭
+STEP 2. 프로젝트 이름 입력 (예: 엔공구 CS / 엔공구 판매분석)
+STEP 3. "지침 추가" → 시스템 프롬프트 입력
+STEP 4. 파일 첨부 (선택) — 더미데이터 엑셀 첨부 시 매번 붙여넣기 불필요
+STEP 5. 저장 → 프로젝트 안에서 대화 시작
+
+─────────────────────────────
+Claude 프로젝트
+URL: https://claude.ai/projects
+
+STEP 1. 접속 후 "새 프로젝트" 클릭
+STEP 2. 프로젝트 이름 입력
+STEP 3. "프로젝트 지침" → 시스템 프롬프트 입력
+STEP 4. 파일 추가 (선택) — 더미데이터 첨부 가능
+STEP 5. 저장 → 프로젝트 안에서 대화 시작`,
+  chain:
+`저장 후 테스트
+1) 프로젝트 안에서 새 대화 시작
+2) 더미데이터 시트 내용 붙여넣기 (또는 첨부 파일 참조)
+3) 지침에서 지정한 형식으로 결과가 나오는지 확인
+4) 대화창 닫고 다시 열었을 때 지침이 유지되는지 확인`
+}
+];
+
+const DEPT_ITEMS = [
+{
+  id:'d1-online', title:'소낙스 신제품 홍보 패키지', stars:1, dept:'온라인사업팀',
+  checks:['슬로건이 실제 제품 강점(오늘출발 배송)을 반영하는가?','세차 초보자도 이해할 수 있는 문구인가?'],
+  data:
+`소낙스 유막 제거제 — 썸머 특가 프로모션 정보
+
+- 제품: 소낙스 유막 제거제
+- 강점: 장마철 시야 확보에 효과적, 오후 4시 이전 주문 시 "오늘출발"
+- 타겟: 세차 초보자`,
+  prompt:
+`[역할] 너는 세차용품 마케팅 카피라이터야
+[작업 목적] 장마철 시야 확보 필요성을 느끼게 하는 홍보 문구 제작
+[입력 데이터 사용 규칙] 아래 프로모션 정보만 사용
+[작업 절차]
+1. 세차 초보자가 공감할 슬로건 3개 작성
+2. 제품 강점 3가지 정리
+[출력 형식] 불릿 포인트
+[검증 기준] 각 슬로건이 배송 강점을 최소 1개는 반영해야 함
+[금지] 제품에 없는 효능 과장 금지
+
+[프로모션 정보]
 (위 데이터 블록 붙여넣기)`,
   chain:
-`1) 방금 만든 시스템 프롬프트를 적용해서, 다음 질문에 답변해줘: "이 제품 화이트 차에도 써도 되나요?"
-2) 아래 답변이 이 시스템 프롬프트를 어겼는지 판단해줘. 어겼다면 어느 조건을 어겼는지, 어떻게 고쳐야 하는지 설명해줘.
-   "네, 모든 차종·색상에 안전하며 발암물질 걱정 없이 사용 가능합니다."
-3) 사수가 이 시스템 프롬프트와 답변들을 검수할 때 가장 먼저 확인해야 할 포인트 3가지를 정리해줘.`
+`1) 이 슬로건 3개 중 하나를 골라 인스타그램 카드뉴스 3장 구성안으로 확장해줘.
+2) 배송 강점을 강조한 버전과 제품 효과를 강조한 버전을 나눠서 A/B테스트용으로 만들어줘.
+3) 이 카피를 실제 발행하기 전 마케팅팀이 검수해야 할 포인트를 정리해줘.`
 },
 {
-  id:'c2-4', title:'본인 업무에 RCTF 프롬프트 대입해보기', stars:3,
-  checks:['1교시 RCTF 구조가 실제 업무 문장으로 자연스럽게 옮겨지는가?','자동화 영역과 검수 영역이 명확히 구분되는가?'],
+  id:'d2-logistics', title:'배송 최적화 및 운영 패키지', stars:2, dept:'물류·운영팀',
+  checks:['같은 보관 구역끼리 정확히 묶였는가?','출고 순서가 실제로 포장 동선을 줄이는 방향인가?'],
   data:
-`(주)엔공구 온라인사업팀 CS 담당자의 반복 업무 예시
+`오늘 접수된 주문 목록 (일부)
 
-- 매주 접수되는 고객 문의를 카테고리별로 정리해 팀 공유
-- 매주 판매 데이터에서 인기 상품 TOP5를 뽑아 재고팀에 공유
-- 매월 지출 내역에서 누락값·이상치를 점검해 회계팀에 보고`,
-  prompt:
-`[역할] 너는 (주)엔공구 온라인사업팀 CS 담당자야
-[작업 목적] 반복 업무 목록 중 자동화 우선순위가 가장 높은 업무 1개를 선정하고, 그 업무의 RCTF 프롬프트를 설계
-[입력 데이터 사용 규칙] 아래 반복 업무 목록만 사용
-[작업 절차]
-1. 3가지 업무 중 "데이터를 다루거나 반복 질문에 답하는" 업무를 우선순위로 선정
-2. 선정한 업무의 Role / Context / Task / Format을 각각 한 문장으로 작성
-3. 완성된 RCTF 프롬프트 전체를 한 단락으로 조합
-[출력 형식] ① 선정 업무 + 선정 이유 1줄 ② Role/Context/Task/Format 표 ③ 완성 프롬프트
-[검증 기준] Task가 구체적인 결과물(표, 목록 등)로 끝나는지 확인
-[금지] 목록에 없는 업무 임의 추가 금지
-
-[반복 업무 목록]
-(위 데이터 블록 붙여넣기)`,
-  chain:
-`1) 완성된 프롬프트를 실제 사용 중인 AI 도구에 그대로 입력해보고, 결과가 기대와 다른 부분이 있다면 어느 조건([역할]/[작업 목적]/[작업 절차]/[출력 형식]) 때문인지 짚어줘.
-2) 이 업무를 자동화했을 때 "AI에 맡길 부분"과 "내가 반드시 확인해야 할 부분"을 나눠줘.
-3) 이 구조를 본인이 실제로 맡고 있는 다른 업무 1가지에도 똑같이 대입해, 새 프롬프트를 하나 더 만들어보세요.`
-},
-{
-  id:'c2-5', title:'Gemini Gem으로 반복 업무 자동화하기', stars:3,
-  checks:['Gem 지침에 RCTF 구조가 그대로 반영되는가?','매번 프롬프트를 새로 쓰지 않고 데이터만 바꿔도 같은 품질의 결과가 나오는가?'],
-  data:
-`Gem 지식(Knowledge) 파일에 그대로 업로드할 카테고리 정의표
-
-| 카테고리 | 정의 | 예시 키워드 |
+| 주문번호 | 제품 | 보관구역 |
 |---|---|---|
-| 사용법 | 제품 사용 방법·사용량 문의 | 몇 번, 사용법, 어떻게 |
-| 호환성 | 차종·색상 등과의 호환 여부 문의 | 화이트, SUV, 써도 되나요 |
-| 배송 | 배송 일정·상태 문의 | 언제, 도착, 배송 |
-| 교환환불 | 환불·교환·반품 문의 | 환불, 교환, 반품 |`,
+| ORD-2201 | 유리막 코팅제 | A구역 |
+| ORD-2202 | 고광택 왁스 | A구역 |
+| ORD-2203 | 워셔액 | B구역 |
+| ORD-2204 | 유리막 코팅제 | A구역 |
+| ORD-2205 | 성에제거제 | B구역 |`,
   prompt:
-`gemini.google.com/gems → 새 Gem 만들기 → 아래 내용을 Instructions(지침)에 그대로 입력
-
-[Gem 이름] 엔공구 CS 문의 분류봇
-
-[역할] 너는 (주)엔공구 온라인사업팀 CS 문의를 분류하는 담당자야
-[작업 목적] 매주 새로 들어오는 문의 목록을 받으면, 지식 파일의 카테고리 정의표 기준으로 자동 분류하고 집계표를 만든다
-[입력 데이터 사용 규칙] 사용자가 붙여넣는 문의 목록과, 업로드된 카테고리 정의표만 근거로 사용한다
+`[역할] 너는 물류센터 출고 최적화 담당자야
+[작업 목적] 포장 인력이 한정된 상황에서 출고 순서를 최적화
+[입력 데이터 사용 규칙] 아래 주문 목록만 사용
 [작업 절차]
-1. 문의를 카테고리 정의표 기준으로 분류
-2. 카테고리별 건수 집계
-3. 정의표에 없는 유형은 "미분류"로 표시
-[출력 형식] 항상 마크다운 표(카테고리 | 건수 | 대표 문의)로만 답한다
-[금지] 카테고리 정의표에 없는 새 카테고리를 임의로 만들지 않는다
+1. 동일 보관구역별로 주문 묶기
+2. 구역별 포함 주문번호와 개수 정리
+[출력 형식] 표 (구역 | 제품 | 포함된 주문번호 | 개수)
+[검증 기준] 구역별 합계가 전체 주문 수와 일치해야 함
+[금지] 목록에 없는 주문번호 생성 금지
 
-[Knowledge 파일] 위 데이터 블록의 카테고리 정의표를 파일로 첨부`,
+[주문 목록]
+(위 데이터 블록 붙여넣기)`,
   chain:
-`1) Gem을 만든 뒤, 이번 실습 1번(VOC 문의 카테고리 자동 분류)에서 썼던 문의 목록을 그대로 붙여넣어 결과가 그때와 같은 형식으로 나오는지 비교해줘.
-2) 완전히 새로운 가상의 문의 목록을 넣었을 때도, 지침을 다시 쓰지 않고 동일한 표 형식으로 나오는지 확인해줘.
-3) 이 Gem을 팀원과 공유해서 다 같이 쓴다면, 지침 어디에 "최종 발송 전 사수 검수 필요" 문구를 추가하면 좋을지 제안해줘.
-4) 매번 대화창에 프롬프트를 복사-붙여넣기 하는 것과 Gem을 만들어 저장해두는 것, 업무 성격에 따라 각각 언제 유리한지 비교해줘.`
+`1) A구역부터 처리했을 때와 B구역부터 처리했을 때, 어느 쪽이 동선상 유리한지 판단 근거와 함께 제안해줘.
+2) 이 결과를 포장 담당자에게 공유할 간단한 작업 지시서로 바꿔줘.
+3) 특정 구역에 주문이 몰릴 경우, 어떤 기준으로 인력을 추가 배치하면 좋을지 제안해줘.`
+},
+{
+  id:'d3-strategy', title:'경쟁사 대응 전략 패키지', stars:2, dept:'전략기획팀',
+  checks:['제안된 전략이 실제 데이터·현황에 근거하는가?','엔공구만의 차별점이 구체적으로 드러나는가?'],
+  data:
+`경쟁사 프로모션 현황 (요약)
+
+- 경쟁사 A: 여름맞이 1+1 기획전 (유리막 코팅제 대상)
+- 경쟁사 B: 전 상품 15% 할인 쿠폰
+- (주)엔공구 강점: 당일 배송, 자체 브랜드 워셔액`,
+  prompt:
+`[역할] 너는 자동차용품 시장 경쟁 전략 컨설턴트야
+[작업 목적] 경쟁사 프로모션에 대응할 (주)엔공구만의 차별화 전략 도출
+[입력 데이터 사용 규칙] 아래 경쟁사 현황만 사용
+[작업 절차]
+1. 경쟁사 프로모션 현황 정리
+2. 엔공구 강점과 연결한 차별화 전략 3가지 도출
+[출력 형식] 현황 분석표 → 전략 3가지 → 전략별 예상 효과
+[검증 기준] 전략이 엔공구의 실제 강점(당일배송, 자체브랜드)에 근거해야 함
+[금지] 근거 없는 가격 인하 전략 제안 금지
+
+[경쟁사 현황]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 이 중 가장 실행 난이도가 낮은 전략 1개를 골라, 2주 내 실행 가능한 액션 플랜으로 구체화해줘.
+2) 이 전략을 팀장에게 보고할 1페이지 요약으로 만들어줘.
+3) 이 분석에서 AI가 실제 매출 데이터 없이 "효과"를 추정한 부분이 있다면 어디인지 짚어줘.`
+},
+{
+  id:'d4-accounting', title:'지출 분류 및 세금 검수 패키지', stars:2, dept:'회계팀',
+  checks:['계정과목 분류 기준이 국세청 기준과 어긋나지 않는가?','부가세 계산이 실제 금액과 일치하는가?'],
+  data:
+`법인카드 사용 내역 (일부)
+
+| 날짜 | 사용처 | 금액 |
+|---|---|---|
+| 7/1 | OO주유소 | 82,000 |
+| 7/2 | OO문구 | 34,000 |
+| 7/3 | OO식당 | 56,000 |
+| 7/4 | OO택배포장재 | 121,000 |`,
+  prompt:
+`[역할] 너는 법인카드 지출 분류 및 부가세 검토 담당자야
+[작업 목적] 지출 내역을 계정과목별로 분류하고 부가세 오류 검토
+[입력 데이터 사용 규칙] 아래 지출 내역만 사용
+[작업 절차]
+1. 계정과목(식대/소모품비/유류비 등) 분류
+2. 부가세율 적용 여부 판단
+[출력 형식] 표 (날짜 | 사용처 | 계정과목 | 금액 | 부가세율 | 부가세)
+[검증 기준] 계정과목 분류 근거를 한 줄씩 남길 것
+[금지] 확인되지 않은 계정과목을 단정적으로 분류 금지 — 애매하면 "확인 필요"로 표시
+
+[지출 내역]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) "확인 필요"로 분류된 항목이 있다면, 어떤 추가 정보가 있어야 정확히 분류할 수 있는지 정리해줘.
+2) 이 표를 회계 프로그램에 그대로 입력할 수 있는 형식으로 다시 정리해줘.
+3) AI가 계정과목을 분류할 때 세무사 최종 확인이 반드시 필요한 이유를 한 줄로 설명해줘.`
+},
+{
+  id:'d5-production', title:'불량 분석 및 개선안 패키지', stars:3, dept:'생산팀',
+  checks:['불량률 계산이 실제 데이터와 일치하는가?','상관관계 해석이 데이터 범위를 벗어나지 않는가?'],
+  data:
+`생산일지 (일부, LOT별 불량 발생 시간대)
+
+| LOT | 생산수량 | 불량수 | 발생 시간대 |
+|---|---|---|---|
+| LOT-0512 | 820 | 9 | 오전 |
+| LOT-0518 | 640 | 23 | 오후 |
+| LOT-0523 | 700 | 21 | 오후 |
+| LOT-0530 | 890 | 8 | 오전 |`,
+  prompt:
+`[역할] 너는 생산 품질 데이터 분석 담당자야
+[작업 목적] 용기 캡 불량의 패턴을 찾아 근본 원인 후보 규명
+[입력 데이터 사용 규칙] 아래 생산일지만 사용
+[작업 절차]
+1. LOT별 불량률 계산
+2. 발생 시간대(오전/오후)와의 관계 분석
+[출력 형식] 표 + 해석 3줄
+[검증 기준] 불량률 = 불량수/생산수량×100, 소수점 2자리
+[금지] 온도·습도 등 데이터에 없는 변수를 있는 것처럼 서술 금지
+
+[생산일지]
+(위 데이터 블록 붙여넣기)`,
+  chain:
+`1) 오후 발생 불량률이 오전보다 높다면, 이 결과만으로 "오후에 문제가 있다"고 단정할 수 있는지 판단하고 이유를 설명해줘.
+2) 추가로 어떤 데이터(온도·습도·작업자 교대 등)를 더 수집하면 좋을지 제안해줘.
+3) 이 결과를 생산팀 회의 공유용 1페이지 요약으로 만들어줘.`
+}
+];
+
+const CH3_ITEMS = [
+{
+  id:'c3-1', title:'주간보고 자동 생성기 — GAS 실습',
+  checks:[
+    'Code.gs를 복사·붙여넣기만으로 실행할 수 있는가?',
+    '버튼 클릭 한 번으로 "보고서" 시트에 초안이 생성되는가?',
+    'AI 결과물에서 사람이 검수해야 할 부분을 스스로 찾아낼 수 있는가?',
+  ],
+  promptLabel: 'RCTF 프롬프트 (AI에게 코드 요청 시)',
+  prompt:
+`[R] 너는 구글 Apps Script(GAS)를 비개발자도 따라 할 수 있게 작성·안내하는 가이드야.
+
+[C]
+- 자동차 세차용품 쇼핑몰 직원이 매주 구글시트에 업무 내용을 정리함
+- 시트 이름: "주간업무"
+- A열: 날짜, B열: 업무내용, C열: 결과
+
+[T] GAS 코드 전체와, 코드 붙여넣기·실행 순서를 한국어로 알려줘.
+    목표:
+    - B열과 C열 내용을 읽어서 Gemini API에 보내고
+    - "이 내용을 팀장 보고용 주간보고 초안으로 정리해줘.
+       핵심 성과 3줄 + 이슈 1줄 + 다음주 계획 1줄 형식으로"
+       라는 프롬프트를 붙여서 전송
+    - 결과를 "보고서" 시트의 A1 셀에 붙여넣기
+
+[F] 개발자가 아니더라도 이해하기 쉽도록 한글 주석 포함`,
+  data:
+`// ─────────────────────────────────────────
+// 엔공구 주간보고 자동 생성기
+// 비개발자도 복사·붙여넣기만으로 사용 가능
+// ─────────────────────────────────────────
+
+// ① API 키를 여기에 입력하세요 (aistudio.google.com에서 무료 발급)
+const API_KEY = "여기에_API_키_입력";
+
+// ② 스프레드시트를 열었을 때 상단 메뉴에 버튼을 추가하는 함수
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu("📋 주간보고 자동화")
+    .addItem("보고서 생성하기", "주간보고생성")
+    .addToUi();
+}
+
+// ③ 실제로 보고서를 만드는 핵심 함수
+function 주간보고생성() {
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const 업무시트 = ss.getSheetByName("주간업무"); // 시트 이름 확인!
+  const 보고서시트 = ss.getSheetByName("보고서");
+
+  // "보고서" 시트가 없으면 새로 만들기
+  if (!보고서시트) { ss.insertSheet("보고서"); }
+  const 결과시트 = ss.getSheetByName("보고서");
+
+  // 데이터 읽기 (2행부터 마지막 행까지)
+  const 마지막행 = 업무시트.getLastRow();
+  if (마지막행 < 2) {
+    SpreadsheetApp.getUi().alert("⚠️ 주간업무 시트에 데이터가 없습니다.");
+    return;
+  }
+
+  // B열(업무내용)과 C열(결과) 읽기
+  const 업무내용 = 업무시트.getRange(2, 2, 마지막행 - 1, 2).getValues();
+
+  let 데이터텍스트 = "";
+  업무내용.forEach((행, i) => {
+    데이터텍스트 += (i + 1) + ". 업무: " + 행[0] + " / 결과: " + 행[1] + "\\n";
+  });
+
+  // Gemini에게 보낼 프롬프트
+  const 프롬프트 =
+    "다음은 이번 주 업무 내용입니다:\\n\\n" + 데이터텍스트 +
+    "\\n이 내용을 팀장 보고용 주간보고 초안으로 정리해줘.\\n" +
+    "형식:\\n[핵심 성과]\\n1.\\n2.\\n3.\\n\\n[이슈]\\n-\\n\\n[다음주 계획]\\n-";
+
+  // Gemini API 호출
+  const API_URL =
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+
+  const 요청옵션 = {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify({
+      contents: [{ parts: [{ text: 프롬프트 }] }]
+    })
+  };
+
+  try {
+    const 응답 = UrlFetchApp.fetch(API_URL, 요청옵션);
+    const 결과JSON = JSON.parse(응답.getContentText());
+    const 보고서내용 = 결과JSON.candidates[0].content.parts[0].text;
+
+    // "보고서" 시트 A1에 결과 붙여넣기
+    결과시트.getRange("A1").setValue(보고서내용);
+    SpreadsheetApp.getUi().alert("✅ 보고서 시트에 주간보고 초안이 생성되었습니다!");
+
+  } catch (오류) {
+    SpreadsheetApp.getUi().alert("❌ 오류: " + 오류.message + "\\nAPI 키를 확인해주세요.");
+  }
+}`,
+  chain:
+`STEP 1. 구글시트 열기
+        상단 메뉴 → 확장 프로그램 → Apps Script 클릭
+
+STEP 2. 코드 붙여넣기
+        기존 내용 전체 삭제 → 위 CODE.GS 전체 복사·붙여넣기
+        API_KEY = "여기에_API_키_입력" 부분에 본인 키 입력
+        (API 키 발급: aistudio.google.com → 무료, 1분이면 됨)
+
+STEP 3. 저장
+        💾 저장 버튼 클릭 (또는 Ctrl+S)
+
+STEP 4. 시트로 돌아가기
+        구글시트 탭으로 돌아오면
+        상단에 "📋 주간보고 자동화" 메뉴가 생김
+
+STEP 5. 실행
+        "주간보고 자동화" → "보고서 생성하기" 클릭
+        ※ 처음 실행 시 권한 허용 팝업이 뜨면 → 허용 클릭
+
+⚠️ 주의사항
+• API 키는 절대 다른 사람과 공유하지 마세요
+• 시트 이름 "주간업무" 이 정확히 일치해야 동작합니다
+• 실제 거래처명·금액 등 민감 정보는 입력하지 마세요
+• AI 결과물은 반드시 사람이 검토 후 발송하세요`
 }
 ];
 
@@ -613,14 +785,17 @@ function escapeHtml(str){
 }
 
 function itemTemplate(it, num){
-  const stars = '★'.repeat(it.stars);
   const dataBlock = it.data ? codeBlock('DATA · 바로 붙여넣기', it.data, it.id+'-data') : '';
+  const promptLabel = it.promptLabel || 'PROMPT';
+  const chainLabel = it.chainLabel || 'CHAIN TASK';
+  const chainBlock = it.chain ? codeBlock(chainLabel, it.chain, it.id+'-chain') : '';
+  const deptLabel = it.dept ? '<span class="item-dept">'+it.dept+'</span>' : '';
   return (
     '<div class="item-card" id="'+it.id+'">' +
       '<button class="item-head" onclick="toggleItem(\''+it.id+'\')">' +
         '<span class="item-num">'+String(num).padStart(2,'0')+'</span>' +
         '<span class="item-title">'+it.title+'</span>' +
-        '<span class="item-stars">'+stars+'</span>' +
+        deptLabel +
         '<span class="chevron">⌄</span>' +
       '</button>' +
       '<div class="item-body"><div class="item-body-inner">' +
@@ -628,8 +803,8 @@ function itemTemplate(it, num){
           it.checks.map(function(c,i){ return '<li>✅ 체크포인트 '+(['①','②','③'][i]||'')+' '+c+'</li>'; }).join('') +
         '</ul>' +
         dataBlock +
-        codeBlock('PROMPT', it.prompt, it.id+'-prompt') +
-        codeBlock('CHAIN TASK', it.chain, it.id+'-chain') +
+        codeBlock(promptLabel, it.prompt, it.id+'-prompt') +
+        chainBlock +
       '</div></div>' +
     '</div>'
   );
@@ -644,14 +819,65 @@ function codeBlock(label, text, id){
   );
 }
 
-function renderItems(items, containerId){
-  document.getElementById(containerId).innerHTML = items.map(function(it,i){ return itemTemplate(it, i+1); }).join('');
+function renderItems(items, containerId, startNum){
+  startNum = startNum || 1;
+  document.getElementById(containerId).innerHTML = items.map(function(it,i){ return itemTemplate(it, startNum+i); }).join('');
 }
 
 function renderToc(items, containerId){
   document.getElementById(containerId).innerHTML = items.map(function(it,i){
-    return '<a href="#" onclick="gotoItem(\''+it.id+'\'); return false;"><span>'+String(i+1).padStart(2,'0')+' · '+it.title+'</span><span class="toc-star">'+'★'.repeat(it.stars)+'</span></a>';
+    return '<a href="#" onclick="gotoItem(\''+it.id+'\'); return false;"><span>'+String(i+1).padStart(2,'0')+' · '+it.title+'</span></a>';
   }).join('');
+}
+
+/* ===================== JOB MATCHER ===================== */
+const JOB_MATCH_DATA = {
+  cs: {
+    label:'CS / 고객응대',
+    task:'반복 문의 카테고리 분류 및 응답 초안 작성 (일 20~30건)',
+    tool:'Gemini Gem — 지식 파일로 응대 기준을 고정해두고 매번 재사용',
+    rctf:'[역할] 너는 고객문의 분류 및 응대 전문가야\n[작업 목적] 오늘 접수된 문의를 카테고리별로 분류하고 답변 초안 작성\n[입력 데이터 사용 규칙] 오늘 접수된 문의 목록만 사용\n[작업 절차] 1. 카테고리 분류  2. 톤·금지사항에 맞춰 답변 초안 작성\n[출력 형식] 표(카테고리|문의|답변 초안)\n[금지] 과장·의학적 효능 언급 금지'
+  },
+  marketing: {
+    label:'온라인마케팅 / 콘텐츠',
+    task:'시즌 전환 상세페이지 문구 교체, 이벤트 안내 이메일 작성',
+    tool:'Claude — 긴 카피 여러 개를 한 번에 비교하며 다듬기 좋음',
+    rctf:'[역할] 너는 이커머스 상세페이지 카피라이터야\n[작업 목적] 시즌에 맞게 상세페이지 문구 교체\n[입력 데이터 사용 규칙] 기존 문구와 전환 조건만 사용\n[작업 절차] 1. 계절 표현만 교체  2. 제품 스펙 문장 유지\n[출력 형식] 수정 전/후 대조표\n[금지] 미검증 효과 추가 금지'
+  },
+  data: {
+    label:'데이터분석 / MD',
+    task:'주간 판매데이터에서 TOP 상품·트렌드 뽑아 리포트 작성',
+    tool:'Claude — 대용량 표 처리와 코드 실행(차트)에 강함',
+    rctf:'[역할] 너는 구매 데이터 분석 전문가야\n[작업 목적] 조건별 구매 패턴 분석 후 리포트용 인사이트 도출\n[입력 데이터 사용 규칙] 업로드한 판매데이터만 사용\n[작업 절차] 1. 조건 필터링  2. TOP5 집계  3. 인사이트 3줄 요약\n[출력 형식] 표 + 요약 3줄\n[금지] 데이터에 없는 제품·수치 생성 금지'
+  },
+  logistics: {
+    label:'물류 / 재고운영',
+    task:'품절 → 재입고 안내 메일 발송, 재고 부족 알림',
+    tool:'Gemini — Gmail 연동으로 메일 초안을 바로 이어서 작성',
+    rctf:'[역할] 너는 물류·배송 운영 전문가야\n[작업 목적] 재입고 알림 신청 고객에게 안내 메일 작성\n[입력 데이터 사용 규칙] 재입고 정보만 사용\n[작업 절차] 1. 재입고 사실 안내  2. 배송 순서 안내\n[출력 형식] 이메일 제목+본문\n[금지] 확정 안 된 혜택 언급 금지'
+  },
+  account: {
+    label:'회계 / 정산',
+    task:'월간 지출 내역에서 누락값·이상치 점검 후 보고',
+    tool:'Claude — 표 형태 데이터의 이상치를 꼼꼼히 짚어냄',
+    rctf:'[역할] 너는 회계·세무 데이터 검토 전문가야\n[작업 목적] 지출 내역에서 누락값·이상 거래를 찾아 정리\n[입력 데이터 사용 규칙] 업로드한 지출내역만 사용\n[작업 절차] 1. 누락값·이상치 탐지  2. 사유 추정은 "추정"으로 표시\n[출력 형식] 표(항목|이상 유형|비고)\n[금지] 확인되지 않은 사유를 사실처럼 서술 금지'
+  }
+};
+
+function showJobMatch(){
+  const key = document.getElementById('job-select').value;
+  const d = JOB_MATCH_DATA[key];
+  const wrap = document.getElementById('job-match-result');
+  wrap.innerHTML =
+    '<div class="code-block" style="margin-top:4px;">' +
+      '<div class="code-head"><span>'+d.label+' · 추천 반복 업무</span></div>' +
+      '<pre style="color:#F1B673;">'+escapeHtml(d.task)+'</pre>' +
+    '</div>' +
+    '<div class="code-block">' +
+      '<div class="code-head"><span>추천 도구</span></div>' +
+      '<pre>'+escapeHtml(d.tool)+'</pre>' +
+    '</div>' +
+    codeBlock('RCTF 템플릿', d.rctf, 'job-match-rctf');
 }
 
 /* ===================== INTERACTIONS ===================== */
@@ -681,9 +907,11 @@ function copyText(id, btn){
 
 document.addEventListener('DOMContentLoaded', function(){
   renderItems(CH1_ITEMS, 'ch1-items');
-  renderItems(CH2_ITEMS, 'ch2-items');
-  renderToc(CH1_ITEMS, 'toc-ch1-list');
-  renderToc(CH2_ITEMS, 'toc-ch2-list');
+  renderItems(CH3_ITEMS, 'ch3-items');
+  renderItems(CH2_ITEMS, 'ch2-items', 1);
+  renderItems(DEPT_ITEMS, 'dept-items');
+  renderItems(CH3_ITEMS, 'ch3-items');
+  showJobMatch();
 
   const els = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver(function(entries){
